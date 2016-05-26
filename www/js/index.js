@@ -65,13 +65,24 @@ function onDeviceReadyMy() {
             url: 'http://95.130.170.228/EpesData/keyget.aspx',
             type: 'POST',
             data:{
-            __VIEWSTATE:"/wEPDwULLTE0NzU1NTI4NThkZIAX6NPlJdqTTriqkL7FsQHBvBwD3ePvKgRGlMY6zRkb",    __EVENTVALIDATION:"/wEWAwKzz6b6AwKL+9KyDgLCi9reA6ofPetmXmUgjXnELRdHTEtdI20VB1kWWbNTea5ivFAP",txtKey:data.registrationId,
+                __VIEWSTATE:"/wEPDwULLTE0NzU1NTI4NThkZIAX6NPlJdqTTriqkL7FsQHBvBwD3ePvKgRGlMY6zRkb",
+                __EVENTVALIDATION:"/wEWAwKzz6b6AwKL+9KyDgLCi9reA6ofPetmXmUgjXnELRdHTEtdI20VB1kWWbNTea5ivFAP",txtKey:data.registrationId,
                 submit:"Submit",
             },
             success: function(html){
                 console.log(html);
             },
         })
+        // .done(function() {
+
+        //     console.log("success");
+        // })
+        // .fail(function() {
+        //     console.log("error");
+        // })
+        // .always(function() {
+        //     console.log("complete");
+        // });
     });
 
     push.on('notification', function(data) {
@@ -86,6 +97,6 @@ function onDeviceReadyMy() {
 }
 
 function onResume(title, message) {
-    alert('title: '+title);
+    // alert('title: '+title);
     alert('message: '+message);
 }
