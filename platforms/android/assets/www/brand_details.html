@@ -1,0 +1,288 @@
+
+
+
+                    <!-- Page, "data-page" contains page name -->
+                    <div data-page="brand_details" class="page navbar-fixed toolbar-fixed page_bg">
+
+                     
+                        <!-- Top Navbar-->
+                        <div class="navbar custom_navbar">
+                            <div class="navbar-inner">
+                                <div class="left">
+                                    <a href="#" class="line_height back">
+                                        <img src="images/back_btn.png" class="header_back_icon" alt=""> <span class="go_back">GERİ</span>
+                                    </a>
+                                </div>
+                                <div class="center">
+                                    <a href="#" class="line_height">
+                                        <img src="images/logo.png" class="logo" alt="">
+                                    </a>
+                                </div>
+                                <!-- <div class="right">
+                                    <a href="#" class="line_height">
+                                        <img src="images/search_icon.png" class="header_search_icon" alt="">
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- /End of Top Navbar-->
+
+                        <div class="page-content">
+                            <style>
+                                
+                               
+
+                                .popup_text{
+                                    margin-top: 60px;
+                                    padding: 0px 15px;
+                                }
+
+                                .popup_text h4{
+                                    font-family: 'Conv_GOTHAM-MEDIUM_0';
+                                    font-size: 18px;
+                                    color: #fff;
+                                    margin: 0;
+                                }
+
+                                .popup_text p{
+                                    font-family: 'Conv_GOTHAM-MEDIUM_0';
+                                    font-size: 14px;
+                                    color: #fff;
+                                    margin: 0;
+                                }
+
+                               .modal-overlay, .popup-overlay, .preloader-indicator-overlay{
+                                    height: 80% !important;
+                                    bottom: 0;
+                                    margin: auto;
+                                    background: rgba(0,0,0,.1);
+                                }
+
+                                .login-screen, .popup{
+                                    height: 100% !important;
+                                    bottom: 0;
+                                    margin: auto;
+                                    background: rgba(0, 0, 0, 0.85);
+                                }
+
+                                .close_popup_btn{
+                                    text-align: right;
+                                    padding-top: 10px;
+                                    padding-right: 10px;
+                                }
+
+                                .close_popup_btn img{
+                                    width: 25px;
+                                    z-index: 9999999;
+
+
+                                }
+
+                                .custom_toolbar,.custom_navbar{
+                                    z-index: 999999;
+                                }
+                            </style>
+
+                            
+
+                          
+                           
+                            <div class="brands_banner" style="" id="brand_banner">
+                               
+                            </div>
+                            <div class="efes_tab_wrap">
+                                <p class="brand_title" id="brand_name"></p>
+                                <div class="brand_content" id="brand_content">
+                                    
+                                </div>
+
+                                <h3 class="brand_detail_header"><span id="profile_title"></span> Tat profİLİ</h3>
+                                
+                                <div class="brand_content" id="brand_desc">
+                                </div>
+
+                                <div style="margin-top: 15px;">
+                                    <table>
+                                        <tbody class="brand_table">
+                                            <tr style="border: 1px solid #004b8e !important;">
+                                                <td class="td1">KATEGORİ</td>
+                                                <td id="brand_cat"></td>
+                                            </tr>
+                                            <tr style="border: 1px solid #004b8e !important;">
+                                                <td class="td1"></td>
+                                                <td id="brand_service"></td>
+                                            </tr>
+                                            <tr style="border: 1px solid #004b8e !important;">
+                                                <td class="td1">DERECE</td>
+                                                <td id="brand_derece"></td>
+                                            </tr>
+                                            <tr style="border: 1px solid #004b8e !important;">
+                                                <td class="td1">AMBALAJ</td>
+                                                <td id="brand_ambalaj">
+                                                </td>
+                                            </tr>
+                                            <tr style="border: 1px solid #004b8e !important;">
+                                                <td class="td1">RAF ÖMRÜ</td>
+                                                <td id="brand_raf"></td>
+                                            </tr>
+                                            <tr style="border: 1px solid #004b8e !important;">
+                                                <td class="td1">ÜLKE</td>
+                                                <td id="brand_ulce"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="brand_spiderimg">
+                                    <img src="" id="spiderpath" alt="">
+                                </div>
+
+                                <div class="brand_icons">
+                                    <p>Analiz ikonlarının açıklamaları için üzerilerine tıklayabilirsiniz.</p>
+                                    <div class="row" id="bardak">
+                                        <!-- <div class="col-33">
+                                            <div class="brand_icon_detail">
+                                                <img src="images/brands_icon1.png" alt="">
+                                                <p>Ağızda Az Kalıcı</p>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-33 open-popup" data-popup=".popup-dolgun">
+                                            <div class="brand_icon_detail" id="dolgun_icon">
+                                                <img src="" id="dolgun" alt="">
+                                                <p>Az Dolgun</p>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-33">
+                                            <div class="brand_icon_detail">
+                                                <img src="images/brands_icon3.png" alt="">
+                                                <p>Aromatik</p>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-33 open-popup" data-popup=".popup-aromatik">
+                                            <div class="brand_icon_detail" id="aromatik_icon">
+                                                <img src="" id="aromatik" alt="">
+                                                <p>Aromatik</p>
+                                            </div>
+                                        </div>
+                                         <div class="col-33 open-popup" data-popup=".popup-goruntu">
+                                            <div class="brand_icon_detail" id="goruntu_icon">
+                                                <img src="" id="goruntu" alt="">
+                                                <p>Görüntü</p>
+                                            </div>
+                                        </div>
+                                       <!--  <div class="col-33">
+                                            <div class="brand_icon_detail">
+                                                <img src="images/brands_icon5.png" alt="">
+                                                <p>Denge</p>
+                                            </div>
+                                        </div> -->
+                                       <!--  <div class="col-33">
+                                            <div class="brand_icon_detail">
+                                                <img src="images/brands_icon6.png" alt="">
+                                                <p>Berrak</p>
+                                            </div>
+                                        </div> -->
+                                        
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>    
+
+                        <div class="popup popup-dolgun">
+                                
+                            
+                            
+                           <div class="popup_text" > 
+                                 <div class="close_popup_btn"><a href="#" class="close-popup"><img src="images/pop_up_close_btn.png" alt=""></a></div>
+                                <h4>Dolgunluk:</h4>
+                                <p>Biranın gövdesi ve dolgunluk seviyesi; biranın üretiminde kullanılan alkol oranı, filtrasyon işlemi ve hammaddelere göre değişiklik gösterir. Tam malt biralar, destekleyici kullanılarak üretilen biralara göre daha dolgun ve gövdelidir. Yüksek alkol seviyesine sahip biralar da gövdeli biralar kategorisinde değerlendirilir. Dolgunluk, tadım terminolojisinde biranınn ağızda ve dilin üzerinde hissettirdiği ağırlık olarak tanımlanabilir.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="popup popup-aromatik">
+                                
+                            
+                            
+                           <div class="popup_text" > 
+                                 <div class="close_popup_btn"><a href="#" class="close-popup"><img src="images/pop_up_close_btn.png" alt=""></a></div>
+                                <h4>Aromatiklik:</h4>
+                                    <p>Bira üretiminde kullanılan şerbetçiotu, biraya farklı aromatik özellikler katar. Aromaların burunda ve damakta daha belirgin, zengin ve kompleks olarak hissedildiği biralar, tadım terminolojisinde aromatik biralar olarak tanımlanır.</p>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="popup popup-goruntu">
+                                
+                            
+                            
+                           <div class="popup_text" > 
+                                 <div class="close_popup_btn"><a href="#" class="close-popup"><img src="images/pop_up_close_btn.png" alt=""></a></div>
+                                <h4>Görüntü:</h4>
+                                    <p>Biralar uygulanan filtrasyon işlemine göre berrak ya da puslu bir hal alabilir. Güneş sembolu berrak biraları, bulut sembolü puslu biraları ve ay sembolü dark biraları simgelemektedir.</p>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="popup popup-bardak">
+                                
+                            
+                            
+                           <div class="popup_text" > 
+                                 <div class="close_popup_btn"><a href="#" class="close-popup"><img src="images/pop_up_close_btn.png" alt=""></a></div>
+                                 <h4>Bardak:</h4>
+                                    <p>Biranın lezzetini tam alabilmek için doğru bardak ile içilmesi önemlidir. </p>
+                            </div>
+
+                        </div>
+
+
+
+                        
+
+                        <!-- Bottom Toolbar-->
+                        <div class="toolbar tabbar tabbar-labels custom_toolbar">
+                            <div class="toolbar-inner">
+                                <a href="wel_page.html" class="link active">
+                                    <i class="icon"><img src="images/bottom_icon1.png" class="bottom_icons" alt=""></i>
+                                    <span class="tabbar-label footer_label">ANADOLU <br />EFESLİLER</span>
+                                </a>
+                                <a href="announcements.html" class="link">
+                                    <i class="icon">
+                                        <img src="images/bottom_icon2.png" class="bottom_icons" alt="">
+                                        <!-- <span class="badge bg-red">16</span> -->
+                                    </i>
+                                    <span class="tabbar-label footer_label">Duyurular</span>
+                                </a>
+                                <a href="efes_anadolu.html" class="link">
+                                    <i class="icon">
+                                        <img src="images/bottom_icon3_active.png" class="bottom_icons" alt="">
+                                    </i>
+                                    <span class="tabbar-label footer_label active_tab_color">ANADOLU EFES</span>
+                                    
+                                </a>
+                                <a href="opportunities.html" class="link">
+                                    <i class="icon">
+                                        <img src="images/bottom_icon4.png" class="bottom_icons" alt="">
+                                        <!-- <span class="badge bg-red">2</span> -->
+                                    </i>
+                                    <span class="tabbar-label footer_label">FIRSATLAR</span>
+                                </a>
+                                <a href="uygul.html" class="link">
+                                    <i class="icon"><img src="images/bottom_icon5.png" class="bottom_icons" alt=""></i>
+                                    <span class="tabbar-label footer_label">UYGULAMALAR</span>
+                                </a>
+                            </div>
+                        </div>  
+                        <!-- /End of Bottom Toolbar--> 
+                    </div>
+
+
+               

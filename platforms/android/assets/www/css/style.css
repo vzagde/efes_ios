@@ -1,0 +1,2053 @@
+@font-face {
+    font-family: 'gotham_boldregular';
+    src: url('../fonts/ufonts.com_gotham-bold-webfont.eot');
+    src: url('../fonts/ufonts.com_gotham-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ufonts.com_gotham-bold-webfont.woff2') format('woff2'),
+         url('../fonts/ufonts.com_gotham-bold-webfont.woff') format('woff'),
+         url('../fonts/ufonts.com_gotham-bold-webfont.ttf') format('truetype'),
+         url('../fonts/ufonts.com_gotham-bold-webfont.svg#gotham_boldregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    src: url('../fonts/ufonts.com_gotham-medium-webfont.eot');
+    src: url('../fonts/ufonts.com_gotham-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ufonts.com_gotham-medium-webfont.woff2') format('woff2'),
+         url('../fonts/ufonts.com_gotham-medium-webfont.woff') format('woff'),
+         url('../fonts/ufonts.com_gotham-medium-webfont.ttf') format('truetype'),
+         url('../fonts/ufonts.com_gotham-medium-webfont.svg#gotham_mediumregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Conv_Gotham-Book';
+    src: url('../fonts/ufonts.com_gotham-book-webfont.eot');
+    src: url('../fonts/ufonts.com_gotham-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ufonts.com_gotham-book-webfont.woff2') format('woff2'),
+         url('../fonts/ufonts.com_gotham-book-webfont.woff') format('woff'),
+         url('../fonts/ufonts.com_gotham-book-webfont.ttf') format('truetype'),
+         url('../fonts/ufonts.com_gotham-book-webfont.svg#gotham_bookregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	src: url('fonts/GOTHAM-BOLD_0.eot');
+	src: local('☺'), url('../fonts/GOTHAM-BOLD_0.woff') format('woff'), url('../fonts/GOTHAM-BOLD_0.ttf') format('truetype'), url('../fonts/GOTHAM-BOLD_0.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	src: url('fonts/GOTHAM-MEDIUM_0.eot');
+	src: local('☺'), url('../fonts/GOTHAM-MEDIUM_0.woff') format('woff'), url('../fonts/GOTHAM-MEDIUM_0.ttf') format('truetype'), url('../fonts/GOTHAM-MEDIUM_0.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_Gotham-Book';
+	src: url('../fonts/Gotham-Book.eot');
+	src: local('☺'), url('../fonts/Gotham-Book.woff') format('woff'), url('../fonts/Gotham-Book.ttf') format('truetype'), url('../fonts/Gotham-Book.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+
+
+/*==============================
+	Helper class
+===============================*/
+.margintop0{
+	margin-top: 0px;
+}
+
+.margintop30{
+	margin-top: 30px;
+}
+
+.paddingbottom0{
+	padding-bottom: 0px !important;
+}
+
+.line_height{
+	line-height: 0;
+}
+
+.page_bg{
+	background-color: #e6e6e6;
+}
+
+.full_width_img{
+	width: 100%;
+}
+
+
+
+
+.image_count{
+	width: 60px;
+    /* border: none; */
+    opacity: 0.75;
+    border: none;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background: #fff;
+}
+
+.image_count i{
+    margin-right: 5px;
+}
+
+.po_rel{
+	position: relative;
+}
+
+.image_icon{
+	width: 20px !important;
+    vertical-align: text-top;
+    margin-right: 5px;
+}
+
+
+/*==============================
+	First Screen (App launch)
+===============================*/
+
+.app_launch_screen{
+	background: url('../images/app_launch_img.jpg') no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.app_screen2{
+	background: url('../images/screen2_bg.jpg') no-repeat;
+	background-size: cover;
+	background-position: center;
+	/*display: none;*/
+}
+
+.efes_logo{
+	text-align: center;
+}
+
+.efes_logo img{
+	width: 50%;
+}
+
+.first_entry_text h5{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #004b8e;
+	text-align: center;
+	margin: 25px 0px 0px 0px;
+}
+
+.first_entry_text p{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #004b8e;
+	text-align: center;
+	margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.first_entry_fields{
+	margin-top: 20px;
+}
+
+.first_entry_fields p{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #004b8e;
+	margin-bottom: 5px;
+}
+
+.first_entry_fields input{
+	width: 98%;
+	height: 30px;
+	border: 0;
+	border-radius: 5px;
+	outline: none;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #004b8e;
+	box-shadow: 2px 2px 2px #928E8C;
+	margin: 0 auto;
+}
+
+.first_entry_btn{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px !important;
+	color: #fff;
+	background: #004582;
+	margin-top: 20px;
+	border: 0;
+}
+
+
+.text_effect{
+	background: url('../images/text_bg.png') no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/*==============================
+	Second Screen (Set Password)
+===============================*/
+
+.app_bg{
+	background: url('../images/screen2_bg.jpg') no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.password_condition{
+	margin-top: 10px;
+	margin-left: 25%;
+}
+
+.password_condition p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 12px;
+	color: #004b8e;
+	margin: 5px 0px;
+}
+
+.password_condition p span{
+	font-size: 14px;
+	color: #3ab145;
+}
+
+/*==================================================
+	Third Screen (Password created and Login page)
+===================================================*/
+
+.custom_loader{
+	text-align: center;
+	margin-top: 75px;
+}
+
+.custom_loader p{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 12px;
+	color: #004b8e;
+	margin-top: 5px;
+}
+
+.app_login_page{
+	display: none;
+}
+
+.app_login_wrap{
+	margin-top: 55px;
+}
+
+.forget_password{
+	text-align: center;
+	margin-top: 25px;
+}
+
+.forget_password a{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 12px;
+	color: #004b8e;
+}
+
+.forget_password a:hover{
+	text-decoration: none;
+}
+
+/*==================================================
+	Fourth Screen (Terms and Conditions page)
+===================================================*/
+
+.tnc_navbar{
+	background-color: #fff;
+	height: 35px;
+	width: 94%;
+	right: 0;
+	margin: auto;
+	border-radius: 5px;
+}
+
+.tnc_navbar:after{
+	background-color: #fff;
+}
+
+.tnc_header{
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px !important;
+	color: #002f59;
+}
+
+.tnc_page{
+	background: #fff;
+	width: 94%;
+	height: 85%;
+	right: 0;
+	margin: auto;
+	border-radius: 5px;
+}
+
+.tnc_text p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 14px;
+	color: #002f59;
+	margin: 0;
+}
+
+.tnc_toolbar{
+	height: 85px;
+	background: #000;
+}
+
+.tnc_toolbar:before{
+	-webkit-transform: scaleY(0) !important;
+	transform: scaleY(0) !important;
+}
+
+.tnc_accept_btn{
+	background: #57b761;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 12px;
+	color: #fff;
+	border: 0;
+	margin: 10px;
+}
+
+.tnc_reject_btn{
+	background: #b13333;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 12px;
+	color: #fff;
+	border: 0;
+	margin: 10px;
+}
+
+/*==================================================
+	Fifth Screen (Welcome page)
+===================================================*/
+
+.welcome_posts_page{
+	display: none;
+}
+
+.custom_navbar{
+	height: 60px;
+	background: #fff;
+    box-shadow: 0px 2px 5px #7d7d7d;
+}
+
+.logo{
+	width: 110px;
+	margin: 0 auto;
+}
+
+.header_user_icon{
+	width: 20px;
+}
+
+.header_search_icon{
+	width: 20px;
+}
+
+.header_back_icon{
+	width: 15px;
+	vertical-align: middle;
+}
+
+.go_back{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 14px;
+	color: #004b8e;
+}
+
+.custom_toolbar{
+	background: #002d55;
+}
+
+.bottom_icons{
+	width: 30px;
+}
+
+.bottom_middle_icon{
+	width: 50px;
+}
+
+.footer_label{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 7px !important;
+	text-transform: uppercase !important;
+	color: #fff;
+}
+
+.toolbar{
+	font-size: 28px;
+}
+
+.toolbar:before{
+	-webkit-transform: scaleY(0) !important;
+	transform: scaleY(0) !important;
+}
+
+.toolbar-inner{
+	padding: 0px;
+}
+
+.tabbar a.link, .tabbar a.tab-link{
+	width: 20%;
+	border-right: 1px solid #264148;
+}
+
+.tabbar i.icon{
+	text-align: center;
+}
+
+.icon .badge{
+	margin-left: -5px;
+    top: -10px;
+    font-size: 12px;
+    line-height: 18px;
+    height: 18px;
+    min-width: 18px;
+}
+
+.active_tab_color{
+	color: #c5ae6e !important;
+}
+
+.welcome_wrapper{
+	padding-bottom: 44px;
+}
+
+.share_btn_wrap{
+	position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 10px 0px 65px 0px;
+    box-shadow: 0px -2px 7px 0px #dedede;
+    background: #dedede;
+}
+
+.share_btn{
+	background: #004787;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #fff;
+	border: 0;
+	width: 94%;
+    margin: 0 auto;
+}
+
+.share_btn img{
+	width: 20px;
+    vertical-align: middle;
+}
+
+
+.welcome_top_post{
+	background-color: #004b8e;
+	border-radius: 25px 15px 5px 5px;
+    /*overflow: hidden;*/
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.post_circle{
+	position: absolute;
+    width: 2px;
+    height: 2px;
+    top: -6px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 4px solid #004b8e;
+    border-radius: 50%;
+    padding: 1px;
+}
+
+.welcome_top_post p, .welcome_top_post span{
+	color: #fff !important;
+}
+
+.welcome_top_post .post_likes{
+	background: #fff;
+}
+
+.welcome_top_post .post_likes i{
+	color: #00396d;
+}
+
+.welcome_top_post .post_likes_feed{
+	background: #fff;
+}
+
+.welcome_top_post .post_likes_feed i{
+	color: #00396d;
+}
+
+.post_survey{
+	background-color: #fff;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+
+.survey_text h5{
+    font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 16px;
+	color: #004b8e;
+	padding: 0px 10px;
+	margin: 0;
+}
+
+.survey_text h5 span{
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 12px;
+	color: #004b8e;
+}
+
+.survey_text p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+    font-size: 13px;
+    color: #002f59;
+    padding: 0px 10px;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.survey_yes_btn{
+	background: #006ecf;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #fff;
+	border: 0;
+	width: 94%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.survey_no_btn{
+	background: #006ecf;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #fff;
+	border: 0;
+	width: 94%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+
+.welcome_post{
+	background: #fff;
+    border-radius: 25px 15px 5px 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.profile_img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 3px;
+    margin-top: 3px;
+}
+
+.user_name {
+    display: inline-block;
+    margin-left: 5px;
+    line-height: 18px;
+    width: 70%;
+}
+
+.user_name p {
+    color: #004b8e;
+    font-size: 16px;
+    font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+    margin: 0;
+    margin-top: 5px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user_name span {
+    color: #004b8e;
+    font-size: 12px;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+}
+
+.likes_wrap {
+    text-align: right;
+    margin-right: 3px;
+    margin-top: 3px;
+}
+
+.likes_count{
+    color: #004b8e;
+    font-size: 16px;
+    padding-right: 5px;
+}
+
+.post_likes {
+    background: #00396d;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    float: right;
+}
+
+.post_likes i {
+    color: #fff;
+    font-size: 16px;
+    padding-top: 6px;
+}
+
+
+.post_likes_feed {
+    background: #00396d;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    float: right;
+}
+
+.post_likes_feed i {
+    color: #fff;
+    font-size: 16px;
+    padding-top: 6px;
+}
+
+
+.post_text p {
+    color: #002f59;
+    font-size: 13px;
+    padding: 0px 15px;
+    margin-top: 10px;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    line-height: 18px;
+
+    overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.post_img{
+	line-height: 0;
+}
+
+.post_img img {
+    width: 100%;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.post_btns{
+margin-top: -2px;
+padding-right: 5px;
+    text-align: right;
+    background: #e6e6e6;
+}
+
+
+.post_btns button ,.post_btns a{
+	background: #004787;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    font-size: 12px;
+    color: #fff;
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 0px 0px 5px 5px;
+    margin-right: 5px;
+    text-transform: uppercase;
+}
+
+/*==================================================
+	Sixth Screen ( Posts Form page)
+===================================================*/
+
+.post_textarea{
+	width: 98%;
+	margin: 0 auto;
+}
+
+.post_textarea textarea{
+	width: 100%;
+	height: 150px;
+	background:#fff;
+	border: 0;
+	border-radius: 5px;
+	outline: none;
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 14px;
+	color: #004b8e;
+	box-shadow: 2px 2px 2px #928E8C;
+	resize: none;
+}
+
+.post_textarea textarea::-webkit-input-placeholder{
+    color: #002f59;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.post_upload_btns a{
+	margin-top: 10px;
+}
+
+.upload_img_btn{
+	background: #004787;
+	font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+	font-size: 14px;
+	color: #fff;
+	border: 0;
+	width: 94%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.upload_img_btn img{
+	width: 20px;
+    vertical-align: middle;
+}
+
+.photo_file_upload{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 9;
+	opacity: 0;
+}
+
+.img_upload_wrap{
+	text-align: center;
+	/*margin-top: 10px;*/
+}
+
+.img_upload_wrap img{
+	max-width: 100%;
+	margin-top: 10px;
+}
+
+
+.upload_post_photos{
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    left: 0;
+    top: 0;
+    z-index: 9;
+    opacity: 0;
+}
+
+.single_img_upload{
+    position: relative;
+    margin-top: 10px;
+}
+
+.single_img_upload img{
+    width: 100%;
+}
+
+.cross_btn{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 30px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.cross_btn:active{
+    opacity: 1;
+}
+
+.multiple_img_upload{
+    position: relative;
+    margin-top: 10px;
+    padding: 0px 2px;
+    display: inline-block;
+    width: 45%;
+}
+
+.multiple_img_upload img{
+    width: 100%;
+}
+
+.multiple_cross_btn{
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    font-size: 25px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.multiple_cross_btn:active{
+    opacity: 1;
+}
+
+
+.post_textarea{
+    position: relative;
+}
+
+.post_textarea #counter{
+    position: absolute;
+    bottom: 5px;
+    right: 29px;
+    width: 32px;
+    overflow: hidden;
+    white-space: nowrap;
+    word-spacing: 20px;
+}
+
+.character_left{
+	position: absolute;
+    bottom: 5px;
+    right: 0px;
+    width: 35px;
+    background: #fff;
+    z-index: 9;
+}
+
+
+
+/*==================================================
+	Photo Feed page
+===================================================*/
+
+.slider_wrap{
+	position: relative;
+}
+
+.slider_wrap .swiper-pagination-bullet-active{
+	background: #fff;
+}
+
+.slider_wrap .swiper-button-prev{
+	background-image: url("../images/slider_left_icon.png");
+    left: 10px;
+    top: 0px !important;
+    bottom: 0px !important;
+    margin: auto !important;
+}
+
+.slider_wrap .swiper-button-next{
+	background-image: url("../images/slider_right_icon.png");
+    right: 10px;
+    top: 0px !important;
+    bottom: 0px !important;
+    margin: auto !important;
+}
+
+.slider_img{
+	width: 100%;
+}
+
+.photo_feed_wrap{
+	background: #fff;
+	padding: 5px 10px 0px 10px;
+	/*min-height: 30%;*/
+}
+
+.feed_post_text p{
+    color: #002f59;
+    font-size: 13px;
+    margin-top: 10px;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    line-height: 18px;
+}
+
+
+/*==================================================
+Announcements page
+===================================================*/
+
+
+
+.all_news{
+position: fixed;
+    margin-bottom: 10px;
+    width: 100%;
+    top: 0px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #e6e6e6;
+    padding-top: 70px;
+    padding-bottom: 5px;
+    z-index: 99;
+}
+
+.all_news_btn{
+background: #004787;
+    font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    border: 0;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.all_news_btn span{
+color: #fff;
+font-size: 14px;
+float: right;
+}
+
+.down_arrow_class{
+display:none;
+}
+
+.up_arrow{
+display: none;
+}
+
+.all_news_dd{
+width: 90%;
+margin: 0;
+padding: 0;
+position: absolute;
+left: 0;
+right: 0;
+top: 94%;
+margin: auto;
+z-index: 9;
+-webkit-perspective: 150px;
+perspective: 150px;
+/*display: none;*/
+overflow: hidden;
+height:0;
+}
+
+.all_news_dd li{
+display: block;
+background: #004787;
+text-align: center;
+padding: 10px 0px;
+margin: 0 5px;
+margin-top: -1px;
+}
+
+.all_news_dd li a{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 13px;
+color: #fff;
+padding:0.5em 4em;
+}
+
+.all_news_dd li {
+    -webkit-transition: .2s ease transform;
+}
+
+.all_news_dd > li:nth-child(odd){
+transform: rotateX(-12deg);
+/*-webkit-transform: rotateX(-12deg);*/
+
+background: #004787;
+    background: -webkit-linear-gradient(#00305b, #003c72);
+    background: -o-linear-gradient(#00305b, #003c72);
+    background: -moz-linear-gradient(#00305b, #003c72);
+    background: linear-gradient(#00305b, #003c72);
+-webkit-transform: rotateX(-12deg);
+}
+
+.all_news_dd > li:nth-child(even){
+transform: rotateX(12deg);
+/*-webkit-transform: rotateX(12deg);*/
+background: #004787;
+    background: -webkit-linear-gradient(#00518b, #00416e);
+    background: -o-linear-gradient(#00518b, #00416e);
+    background: -moz-linear-gradient(#00518b, #00416e);
+    background: linear-gradient(#00518b, #00416e);
+-webkit-transform: rotateX(12deg);
+
+}
+
+.news_margintop{
+margin-top: 65px;
+}
+
+.news_wrap{
+background: #fff;
+border-radius: 5px; 
+margin-bottom: 10px;
+box-shadow: 0px 2px 2px #928E8C;
+    min-height: 60px;
+
+}
+
+.news_wrap_opportunities{
+background: #fff;
+border-radius: 5px; 
+margin-bottom: 10px;
+box-shadow: 0px 2px 2px #928E8C;
+    min-height: 50px;
+}
+
+
+
+.news_title p{
+color: #333333;
+    font-size: 12px;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    margin: 5px 0px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.news_circle{
+width: 9px;
+height: 9px;
+border: 1px solid #004b8e;
+border-radius: 50%;
+margin-left: 5px;
+margin-top: 3px;
+margin-right: 3px;
+float: left;
+}
+
+.news_circle_bg{
+background: #004b8e;
+}
+
+.news_heading{
+width: 85%;
+float: left;
+}
+
+.news_heading p{
+    font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 13px;
+    color: #004b8e;
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.news_date{
+/*display: inline-block;
+width: 25%;*/
+padding-right: 10px;
+}
+
+.news_date p{
+font-family: 'Conv_Gotham-Book';
+font-size: 12px;
+    color: #004b8e;
+    margin: 0;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.news_text{
+position: relative;
+margin-top: -5px;
+}
+
+.news_text p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 13px;
+color: #002f59;
+margin: 5px 0px;
+    padding: 0px 20px 5px 20px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+}
+
+.news_text_detail{
+position: relative;
+margin-top: -5px;
+}
+
+.news_text_detail p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 13px;
+color: #002f59;
+margin: 5px 0px;
+    padding: 0px 20px 5px 20px;
+}
+
+.news_arrow{
+position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 12px;
+    color: #b4b4b4;
+}
+
+.artist1_btn{
+background: #006ecf;
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px;
+color: #fff;
+border: 0;
+width: 94%;
+margin: 0 auto;
+margin-top: 10px;
+}
+
+.artist2_btn{
+background: #006ecf;
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px;
+color: #fff;
+border: 0;
+width: 94%;
+margin: 0 auto;
+margin-top: 10px;
+}
+
+.artist3_btn{
+background: #006ecf;
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px;
+color: #fff;
+border: 0;
+width: 94%;
+margin: 0 auto;
+margin-top: 10px;
+}
+
+
+/*==================================================
+Efes Anadolu page
+===================================================*/
+
+
+.efes_btn_wrap{
+    border-radius: 10px 10px 0px 0px;
+    background: #e6e6e6;
+    z-index: 99;
+    margin-top: -10px;
+    padding-top: 1px;
+        position: fixed;
+    width: 100%;
+    bottom: 50px;
+}
+
+.efes_btn{
+background: #00498a;
+    background: -webkit-linear-gradient(#00498a, #003565);
+    background: -o-linear-gradient(#00498a, #003565);
+    background: -moz-linear-gradient(#00498a, #003565);
+    background: linear-gradient(#00498a, #003565);
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px !important;
+color: #fff;
+border: 0;
+width: 94%;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    text-transform: uppercase;
+}
+
+.efes_anadolu{
+background: url('../images/efes_anadolu_bg.jpg') no-repeat;
+background-size: cover;
+background-position: top; 
+height: 55%;
+text-align: center;
+}
+
+.efes_anadolu img{
+width: 35%;
+margin-top: 25%;
+}
+
+/*==================================================
+About Us page (HAKKIMIZDA)
+===================================================*/
+
+.about_us{
+background: url('../images/hakkimizda.jpg') no-repeat;
+background-size: cover;
+background-position: center; 
+height: 55%;
+text-align: center;
+}
+
+.about_us p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 25%;
+}
+
+
+.surdur{
+background: url('../images/surdu.jpg') no-repeat;
+background-size: cover;
+background-position: center; 
+height: 55%;
+text-align: center;
+}
+
+.surdur p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 25%;
+}
+
+.toplum{
+background: url('../images/toplum.png') no-repeat;
+background-size: cover;
+background-position: center; 
+height: 55%;
+text-align: center;
+}
+
+.toplum p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 25%;
+}
+
+
+
+/*==================================================
+Library page (KÜTÜPHANE)
+===================================================*/
+
+.library{
+background: url('../images/library.jpg') no-repeat;
+background-size: cover;
+    background-position: center;
+    height: 60%;
+    text-align: center;
+}
+
+.library p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 40%;
+}
+
+
+/*==================================================
+Search page 
+===================================================*/
+
+.search_fields{
+margin-top: 20px;
+}
+
+.search_fields p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px;
+color: #004b8e;
+margin-bottom: 5px;
+}
+
+.search_fields select{
+background-image: url('../images/dropdown_icon.png');
+    background-repeat: no-repeat;
+    background-position: 98%;
+    background-size: 18px;
+    background-color: #fff;
+    width: 100%;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+    padding-left: 5px;
+    font-family: 'Conv_GOTHAM-MEDIUM_0';
+    font-size: 14px;
+    color: #004b8e;
+    box-shadow: 2px 2px 2px #928E8C;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+
+/*==================================================
+Search result page 
+===================================================*/
+
+.search_list{
+margin-top: 0px;
+padding: 0px;
+}
+
+.search_result_count{
+border-bottom: 1px solid #7398ba; 
+}
+
+.search_result_count p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 12px;
+color: #004b8e;
+margin: 0;
+margin-bottom: 10px;
+text-align: center
+}
+
+.search_result{
+    border-bottom: 1px solid #7398ba;
+}
+
+.result_userimg{
+width: 60px;
+    height: 60px;
+    border: 1px solid #002f59;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.result_detail{
+display: inline-block;
+margin-top: 10px;
+margin-left: 5px;
+width: 70%;
+}
+
+.result_detail_name h4{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 15px;
+color: #002f59;
+margin: 0;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result_detail_name p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 12px;
+color: #002f59;
+margin: 0;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result_detail_loc_dept{
+margin-top: 5px;
+}
+
+.result_detail_loc{
+display: inline-block;
+width: 45%;
+}
+
+.result_detail_loc h5{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px;
+color: #002f59;
+margin: 0;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result_detail_loc p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 12px;
+color: #002f59;
+margin: 0;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result_detail_dept{
+display: inline-block;
+width: 45%;
+margin-left: 5%;
+}
+
+.result_detail_dept h5{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px;
+color: #002f59;
+margin: 0;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result_detail_dept p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 12px;
+color: #002f59;
+margin: 0;
+width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*==================================================
+Search Profile details page 
+===================================================*/
+.search_profile_padding{
+padding: 0px 0px 10px 0px;
+margin: 30px 0px 0px 0px;
+}
+
+.search_profile_detail{
+margin-bottom: 10px;
+padding: 0px 10px;
+}
+
+.search_profile_userimg{
+width: 80px;
+    height: 80px;
+    border: 1px solid #002f59;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.search_profile_name{
+display: inline-block;
+margin-top: 20px;
+margin-left: 5px;
+width: 60%;
+}
+
+.search_profile_name h4{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 16px;
+color: #002f59;
+margin: 0;
+}
+
+.search_profile_name p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 14px;
+color: #002f59;
+margin: 0;
+}
+
+.search_profile_info{
+margin-top: 10px;
+border-bottom: 1px solid #7398ba;
+padding: 0px 10px 10px 10px;
+}
+
+.search_profile_info img{
+display: inline-block;
+    vertical-align: top;
+    width: 50px;
+}   
+
+.search_profile_text{
+display: inline-block;
+margin-left: 10px;
+width: 75%;
+    word-wrap: break-word;
+}
+
+.search_profile_text h5{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 16px;
+color: #002f59;
+margin: 0;
+}
+
+.search_profile_text p{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+font-size: 14px;
+color: #002f59;
+margin: 0;
+}
+
+.search_profile_text p a{
+color: #002f59;
+}
+
+.search_profile_btn_wrap{
+width: 96%;
+margin: 0 auto;
+}
+
+.search_profile_btn{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px !important;
+color: #fff;
+margin-top: 15px;
+border: 0;
+background: #00498a;
+    background: -webkit-linear-gradient(#00498a, #003565);
+    background: -o-linear-gradient(#00498a, #003565);
+    background: -moz-linear-gradient(#00498a, #003565);
+    background: linear-gradient(#00498a, #003565);
+}
+
+CSS:
+
+/*==================================================
+Together page (BİRARADA)
+===================================================*/
+
+.together{
+	background: url('../images/together_bg.jpg') no-repeat !important;
+	background-size: cover;
+	background-position: top; 
+	height: 55%;
+	text-align: center;
+}
+
+.together p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 40%;
+}
+
+
+.efes_tab_wrap{
+    border-radius: 10px 10px 0px 0px;
+    background: #e6e6e6;
+    margin-top: -10px;
+    padding: 0px 15px 25px 15px;
+}
+
+.together_box{
+height: 130px;
+border-radius: 5px;
+margin-top: 10px;
+overflow: hidden;
+position: relative;
+background: #a1cfeb;
+}
+
+.together_box img{
+width: 100%;
+}
+
+.together_number{
+background: #18476f;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+}
+
+.together_number p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 12px;
+color: #fff;
+text-align: center;
+margin: 0;
+padding: 5px 0px;
+text-transform: uppercase;
+}
+
+/*=======================================================
+Reports and Documents page (RAPORLAR VE DÖKÜMANLAR)
+========================================================*/
+
+.reports{
+background: url('../images/reports_bg.jpg') no-repeat;
+background-size: cover;
+background-position: top; 
+height: 55%;
+text-align: center;
+}
+
+.reports p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 35%;
+}
+
+
+.bira_kulturu{
+background: url('../images/Bira_kuturu.jpg') no-repeat;
+background-size: cover;
+background-position: top; 
+height: 55%;
+text-align: center;
+}
+
+.bira_kulturu p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 35%;
+}
+
+
+
+.Prosedarler{
+background: url('../images/Prosedarler.jpg') no-repeat;
+background-size: cover;
+background-position: top; 
+height: 55%;
+text-align: center;
+}
+
+.Prosedarler p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 35%;
+}
+
+
+
+
+.reports_box{
+background: url('../images/report_pdf.jpg') no-repeat;
+background-size: cover;
+background-position: center; 
+height: 130px;
+border-radius: 5px;
+margin-top: 10px;
+position: relative;
+}
+
+.report_pdf_name{
+background: #002f59;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+}
+
+.report_pdf_name p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 9px;
+color: #fff;
+text-align: center;
+margin: 0;
+padding: 5px 5px;
+text-transform: uppercase;
+word-break: break-all;
+}
+
+/*=======================================================
+Last tab
+========================================================*/
+
+.uygul{
+background: url('../images/uygul.jpg') no-repeat;
+background-size: cover;
+background-position: top; 
+height: 55%;
+text-align: center;
+}
+
+
+.uygul p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 35%;
+}
+
+.ugul_icon{
+	margin-top: 10px;
+}
+
+.ugul_icon img{
+	height: 80px;
+}
+
+/*=======================================================
+Brands page (Markalarımız)
+========================================================*/
+
+.brands{
+background: url('../images/Markalarimiz.jpg') no-repeat;
+background-size: cover;
+background-position: top; 
+height: 55%;
+text-align: center;
+}
+
+.brands p{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 25px;
+color: #fff;
+text-align: center;
+margin: 0;
+    padding-top: 35%;
+    text-transform: uppercase;
+}
+
+.brand_wrap{
+	padding: 5px 10px;
+    background-color: #cfd3d8;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.brands_box{
+	background-color: #cfd3d8;
+    text-align: center;
+    height: 70px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+/*.brands_box img{
+width: 60px;
+height: 60px;
+}*/
+
+/*=======================================================
+Brands banner (Markalarımız)
+========================================================*/
+.brands_banner{
+
+height: 55%;
+text-align: center;
+}
+
+.brand_title{
+    font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+    font-size: 25px;
+    color: #004b8e;
+    /* text-align: center; */
+    margin: 0;
+    padding-top: 10px;
+    text-transform: uppercase;
+}
+.brand_content p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+    font-size: 16px;
+    color: #004b8e;
+}
+
+/*==================================================
+My Profile page 
+===================================================*/
+
+.my_profile_pic{
+background-image: url('');
+position: relative; 
+overflow: hidden;
+width: 80px;
+    height: 80px;
+    border: 1px solid #002f59;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.change_pic{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+    font-size: 10px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.45);
+    margin: 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.change_pic_input{
+position: absolute;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    height: 20px;
+}
+
+.my_profile_btn{
+font-family: 'Conv_GOTHAM-BOLD_0';
+	font-weight: 500;
+font-size: 14px !important;
+color: #fff;
+margin-top: 15px;
+border: 0;
+background: #00498a;
+    background: -webkit-linear-gradient(#00498a, #003565);
+    background: -o-linear-gradient(#00498a, #003565);
+    background: -moz-linear-gradient(#00498a, #003565);
+    background: linear-gradient(#00498a, #003565);
+    height: 35px !important;
+    line-height: 35px !important;
+}
+
+.switch_btn{
+position: absolute;
+top: 10px;
+right: 10px;
+}
+
+.label-switch{
+width: 85px !important;
+}
+
+.label-switch .checkbox{
+width: 85px !important;
+padding-left: 5px !important;
+padding-top: 5px !important;
+}
+
+.label-switch .checkbox:before{
+width: 85px !important;
+height: 32px !important;
+color: #000 !important;
+background: #9c9d9c !important;
+top: 0px !important;
+    left: -.5px !important;
+}
+
+.label-switch input[type=checkbox]:checked+.checkbox:after{
+-webkit-transform: translateX(53px) !important;
+    transform: translateX(53px) !important;
+}
+
+.label-switch input[type=checkbox]:checked+.checkbox{
+background: #10891b !important;
+    background: -webkit-linear-gradient(#10891b, #31a83c) !important;
+    background: -o-linear-gradient(#10891b, #31a83c) !important;
+    background: -moz-linear-gradient(#10891b, #31a83c) !important;
+    background: linear-gradient(#10891b, #31a83c) !important;
+}
+
+.custom_label{
+font-family: 'Conv_GOTHAM-MEDIUM_0';
+color: #fff;
+    font-size: 10px;
+    padding-top: 5px;
+    padding-left: 5px;
+    line-height: 10px;
+}
+
+
+
+
+/*==================================================
+Brand Detail page 
+===================================================*/
+
+.brand_content{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 15px;
+	color: #002f59;
+}
+
+.brand_detail_header{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 16px;
+	color: #fff;
+	background: #004b8e;
+	    margin: 10px 0px;
+    padding: 5px 10px;
+        font-weight: 100;
+    text-transform: uppercase;
+}
+
+table { 
+    border-collapse: collapse; 
+}
+
+.brand_table{
+	border: 1px solid #004b8e !important;
+
+}
+
+.brand_table td{
+	
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 12px;
+	color: #002f59;
+}
+
+.td1{
+	text-transform: uppercase;
+	width: 35%;
+}
+
+.brand_spiderimg img{
+	margin-top: 15px;
+	width: 100%;
+}
+
+.brand_icons p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 16px;
+	color: #002f59;
+	margin-top: 15px;
+}
+
+.brand_icon_detail img{
+	width: 100%;
+}
+
+.brand_icon_detail p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 12px;
+	color: #002f59;
+	font-weight: bold;
+	margin-top: 2px;
+	text-align: center;
+}
+
+.ugul_bg{
+	background-color: #004a8c !important;
+    background-color: -webkit-linear-gradient(#004a8c, #003360) !important;
+    background-color: -o-linear-gradient(#004a8c, #003360) !important;
+    background-color: -moz-linear-gradient(#004a8c, #003360) !important;
+    background-color: linear-gradient(#004a8c, #003360) !important;
+	border-radius: 5px;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.ugul_icon{
+    height: 70px;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ugul_bg p{
+	font-family: 'Conv_GOTHAM-MEDIUM_0';
+	font-size: 10px;
+	color: #fff;
+	text-align: center;
+	margin: 0;
+}
+
+
+
+@media only screen and (max-device-width : 320px){ 
+	.my_profile_pic{
+		width: 65px;
+    	height: 65px;	
+	}
+
+	.search_profile_info img{
+   	 	width: 40px;
+	} 
+
+
+}

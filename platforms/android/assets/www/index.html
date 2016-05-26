@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!-- Your app title -->
+        <title>AEfespeak</title>
+        <!-- Path to Framework7 Library CSS, iOS Theme -->
+        <link rel="stylesheet" href="css/framework7.ios.min.css">
+        <!-- Path to Framework7 color related styles, iOS Theme -->
+        <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+        <!-- Path to your Font Awesome style-->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- Path to your custom app styles-->
+        <link rel="stylesheet" href="css/style.css">
+
+        <script src="js/modernizr.custom.js"></script>
+    </head>
+    <body>
+        <!-- Status bar overlay for full screen mode (PhoneGap) -->
+        <div class="statusbar-overlay"></div>
+        <!-- Views -->
+        <div class="views">
+            <!-- Your main view, should have "view-main" class -->
+            <div class="view view-main">
+                <!-- Pages container -->
+                <div class="pages">
+                    <!-- Page, "data-page" contains page name -->
+                    <div data-page="home" class="page app_launch_screen" style="display:block;">
+                        
+                    <a href="tel:9867248591" class="button button-big first_entry_btn " style="display:none;"><button>test:  ŞşĞğÇçÖöİıÜü</button></a>
+
+
+
+                    </div> 
+                    <!-- <div data-page="index" class="page app_screen2">
+                        <div class="content-block">
+                            <div class="row">
+                                <div class="col-100">
+                                    <div class="efes_logo">
+                                        <img src="images/efes_logo.png" alt="">
+                                    </div>
+
+                                    <div class="first_entry_text">
+                                        <h5>Hoşgeldin</h5>
+                                        <p>İlk kullanımda Anadolu Efes personel numaran ve TC kimlik numaran ile giriş yapabilirsin.</p>
+                                    </div>
+
+                                    <div class="first_entry_form">
+                                        <div class="first_entry_fields">
+                                            <p>Personel No:</p>
+                                            <input type="text"  />
+                                        </div>
+                                        <div class="first_entry_fields">
+                                            <p>TC Kimlik No:</p>
+                                            <input type="text"  />
+                                        </div>
+
+                                        <a href="efes_anadolu.html" class="button button-big first_entry_btn">GİRİŞ</a>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>           
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Path to Jquery JS-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <!-- Path to Framework7 Library JS-->
+        <script type="text/javascript" src="js/framework7.min.js"></script>
+        <script type="text/javascript" src="js/MaxLength.min.js"></script>
+        <script type="text/javascript" src="js/jquery.timeago.js"></script>
+
+
+        
+        <script type="text/javascript" charset="utf-8" src="cordova.js?v=wqd"></script>
+
+
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <!-- Path to your app js-->
+        <script type="text/javascript" src="js/my-app.js"></script>
+
+
+
+
+        <script type="text/javascript"> 
+            $(document).ready( function() {
+               
+                 var app = {
+                // Application Constructor
+                initialize: function() {
+                    this.bindEvents();
+                },
+                // Bind Event Listeners
+                //
+                // Bind any events that are required on startup. Common events are:
+                // 'load', 'deviceready', 'offline', and 'online'.
+                bindEvents: function() {
+                    document.addEventListener('deviceready', this.onDeviceReady, false);
+                },
+                // deviceready Event Handler
+                //
+                // The scope of 'this' is the event. In order to call the 'receivedEvent'
+                // function, we must explicitly call 'app.receivedEvent(...);'
+                onDeviceReady: function() {
+
+                    
+                    app.receivedEvent('deviceready');
+
+
+                },
+                // Update DOM on a Received Event
+                receivedEvent: function(id) {
+                //alert(device.uuid);
+                //navigator.splashscreen.hide();
+                //
+                    document.addEventListener("backbutton", function(e){ 
+                        var page=myApp.getCurrentView().activePage;
+                        myApp.hidePreloader();
+                        if(page.name=="home"){ 
+                            e.preventDefault();
+                            if(confirm("Do you want to Exit!")) { 
+                                navigator.app.clearHistory();
+                                navigator.app.exitApp();
+                             }
+                        }else {
+                            navigator.app.backHistory();
+                        }
+                    }, false);
+                    device_platform = device.platform;
+                    //alert(device.platform);
+                    // This works function onBackKeyDown() { $$(".back").click(); } document.addEventListener("backbutton", onBackKeyDown, false);
+
+
+
+                    setTimeout(function() {
+                        navigator.splashscreen.hide();
+                        if(!window.localStorage.getItem("username")){
+                            mainView.router.loadPage('login_page.html');
+                        }else{
+                            mainView.router.loadPage('wel_page.html');
+
+                        }
+                    }, 3000);
+                   
+                     
+                }
+
+            }; 
+
+            app.initialize();
+            });
+        </script>
+    </body>
+</html>

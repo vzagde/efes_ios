@@ -1,0 +1,1868 @@
+// Initialize your app
+var myApp = new Framework7({
+     pushState: true,
+     preloadPreviousPage:false,
+});
+
+// Export selectors engine
+var $$ = Dom7;
+
+// Add view
+var mainView = myApp.addView('.view-main', {
+    // Because we use fixed-through navbar we can enable dynamic navbar
+    //dynamicNavbar: true
+});
+
+// Callbacks to run specific code for specific pages, for example for About page:
+// myApp.onPageInit('about', function (page) {
+//     // run createContentPage func after link was clicked
+//     $$('.create-page').on('click', function () {
+//         createContentPage();
+//     });
+// });
+// 
+// 
+// 
+
+var person_search_result = "";
+var locations_list = "";
+var opportunities_list = "";
+var announcements_list = "";
+var base_url = 'http://95.130.170.228/EpesData/';
+
+
+
+$(document).on("click",".feed_poll_opt",function(){
+
+    //mainView.router.loadPage('login_page.html');
+       // alert(window.localStorage.getItem("username"));
+
+    if(window.localStorage.getItem("username")){
+        var poll_value = $(this).attr("value");
+        var poll_id = $(this).attr("alt");
+        var poll_username = window.localStorage.getItem("username");
+        var instance_div = $(this);
+
+        $.ajax({
+            url: base_url+"PollReply.aspx",
+            type: 'POST',
+            data:{__VIEWSTATE:"/wEPDwUJMzM2MTU1MjMyZGSPsEnwbP7wUWd72W2KSVlN7GbRgGAC00A8dU5+O9io8Q==",__EVENTVALIDATION:"/wEWBQLCzuvfDQL/+rqdDgLB2tiHDgKY+87FCwLCi9reA3V/G09oFq8z0gzfXDfZwzGNZWA4+BP6u3y4nUL40Ui1",txtPid:poll_id,txtUser:poll_username,txtOpt:poll_value,submit:"Submit"},
+            //data:{device_uid:'123456'},
+        
+            success: function(html){
+
+                //alert(html.polladded);
+
+
+               // alert(html);
+
+                instance_div.parent().parent().fadeOut();
+            }
+        });
+    }else{
+
+        mainView.router.loadPage('login_page.html');
+
+    }
+
+});
+
+
+
+$(document).on("click",".post_likes",function(){
+    if(window.localStorage.getItem("username")){
+        var feed_id = $(this).attr("alt");
+        var user_name = window.localStorage.getItem("username");
+
+        instance_div = $(this);
+
+        $.ajax({
+            url: base_url+"Likes.aspx",
+            type: 'POST',
+            data:{__VIEWSTATE:"/wEPDwUKLTcxMjI4Mjc5NmRkheNW8Uakr4Rpt3oZRbKJUr7F+u3dH1uHVuGOxty20PE=",__EVENTVALIDATION:"/wEWBAKdosu1DgKl1bKzCQKfrtLtCALCi9reAwpFVJ8BFl4CJMfz5eTJNDu8R9suDeCCfDIfMNnoIuE6",txtUserName:user_name,txtFeedId:feed_id,submit:"Submit"},
+            //data:{device_uid:'123456'},
+        
+            success: function(html){
+                //alert(html);
+
+                if(html.likesadded == "YES"){
+                   var likes =  instance_div.siblings('.likes_count').html();
+                   likes = likes/1;
+                   likes++;
+                   instance_div.siblings('.likes_count').html(likes);
+                }
+
+
+            }
+        });
+
+    }else{
+
+        mainView.router.loadPage('login_page.html');
+
+    }
+});
+
+$(document).on("click",".news_wrap",function(){
+    var id_ = $(this).attr('alt');
+    var type_ ="Announcements";
+    
+    announcements_list = $(this).html();
+    $(this).find(".news_circle_bg").removeClass("news_circle_bg");
+
+    $.ajax({
+        url: base_url+"readentry.aspx",
+        type: 'POST',
+        data:{__VIEWSTATE:"/wEPDwULLTE2MTUxNjk2MzZkZPQyLNRjITxwxhXEY+0CzaPIZp/IaGpH8iZuQxs2/iwh",__EVENTVALIDATION:"/wEWBwLe+ParCwKhsKv2CALarKfLDQL2mKupAQLB2tiHDgKM+5bqDwLCi9reAyFN8PnoOsh8al6K4+s2ZncE1aO6/OnUoJ+/mk1TBuuv",dRT:type_,txtUser:window.localStorage.getItem("username"),txtId:id_,submit:"Submit"},
+        success: function(html){
+            
+            console.log(html);
+
+        }
+    });
+
+
+
+    mainView.router.loadPage('announcement_detail.html');
+});
+
+$(document).on("click",".news_wrap_opportunities",function(){
+    var id_= $(this).attr('alt');
+    var type_="Firsatlar";
+
+    opportunities_list = $(this).html();
+    $(this).find(".news_circle_bg").removeClass("news_circle_bg");
+
+    $.ajax({
+        url: base_url+"readentry.aspx",
+        type: 'POST',
+        data:{__VIEWSTATE:"/wEPDwULLTE2MTUxNjk2MzZkZPQyLNRjITxwxhXEY+0CzaPIZp/IaGpH8iZuQxs2/iwh",__EVENTVALIDATION:"/wEWBwLe+ParCwKhsKv2CALarKfLDQL2mKupAQLB2tiHDgKM+5bqDwLCi9reAyFN8PnoOsh8al6K4+s2ZncE1aO6/OnUoJ+/mk1TBuuv",dRT:type_,txtUser:window.localStorage.getItem("username"),txtId:id_,submit:"Submit"},
+        success: function(html){
+            
+            console.log(html);
+
+        }
+    });
+
+    mainView.router.loadPage('opportunities_detail.html');
+});
+
+
+
+
+
+function get_feeds(pull){
+    var all_feeds = "";
+   
+    $.ajax({  
+            url: base_url+"GetJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                //console.log(html);
+                if(html.pindata){
+                    $.each(html.pindata,function(index,value){
+                        var date_time = value.uploaddate;
+                        var time_ago = jQuery.timeago(date_time);
+                        var pin_posts = '<div class="welcome_top_post"><div class="post_circle"></div><div class="row no-gutter"><div class="col-75"><div class="profile_img" style="background-image: url('+base_url+value.image+');"></div><div class="user_name"><p>'+value.username+'</p><span>'+time_ago+'</span></div></div><div class="col-25"><div class="likes_wrap"><span class="likes_count">'+value.likes+'</span><div class="post_likes" alt="'+value.uniqid+'"><i class="fa fa-heart"></i></div></div></div></div><div class="row"><div class="col-100"><div class="post_text"><p>'+value.feeddata+'</p></div></div></div></div>';
+                        
+                       
+                       all_feeds += pin_posts;
+                    });
+
+                    
+                }
+
+                if(html.polldata){
+                    $.each(html.polldata,function(index,value){
+                        var date_time = value.date;
+                        var time_ago = jQuery.timeago(date_time);
+
+                        var poll_html = '<div class="post_survey" id="post_id'+value.pollid+'"><div class="survey_text"><h5>Anket <span>'+time_ago+'</span></h5><p>'+value.question+'</p></div><div class="survey_btns">';
+                        if(value.opt1 != ""){
+                            poll_html += '<a href="javascript:void(0)" class="button survey_yes_btn feed_poll_opt" value="'+value.opt1+'" alt="'+value.pollid+'" >'+value.opt1+'</a>';
+                        }
+                        if(value.opt2 != ""){
+                            poll_html += '<a href="javascript:void(0)" class="button survey_yes_btn feed_poll_opt" value="'+value.opt2+'" alt="'+value.pollid+'" >'+value.opt2+'</a>';
+                        }
+                        if(value.opt3 != ""){
+                            poll_html += '<a href="javascript:void(0)" class="button survey_yes_btn feed_poll_opt" value="'+value.opt3+'" alt="'+value.pollid+'" >'+value.opt3+'</a>';
+                        }
+                        if(value.opt4 != ""){
+                            poll_html += '<a href="javascript:void(0)" class="button survey_yes_btn feed_poll_opt" value="'+value.opt4+'" alt="'+value.pollid+'" >'+value.opt4+'</a>';
+                        }
+
+                        poll_html += '</div></div>';
+                       all_feeds += poll_html;
+                       
+
+                    });
+
+                    
+                    
+                }
+                
+                
+                if(html.feeddata){
+                    for(var i=0;i<html.feeddata.length;i++){
+                            //alert(value.imagename[0].image);
+                    
+                        var date_time = html.feeddata[i].uploaddate;
+                        var time_ago = jQuery.timeago(date_time);
+                        var posts = '<div class="welcome_post"><div class="row no-gutter"><div class="col-75"><div class="profile_img" style="background-image: url('+base_url+html.feeddata[i].image+');"></div><div class="user_name"><p>'+html.feeddata[i].username+'</p><span>'+time_ago+'</span></div></div><div class="col-25"><div class="likes_wrap"><span class="likes_count">'+html.feeddata[i].likes+'</span><div class="post_likes" alt="'+html.feeddata[i].uniqid+'"><i class="fa fa-heart"></i></div></div></div></div><div class="row"><a href="feed_photo.html?uid='+html.feeddata[i].uniqid+'"><div class="col-100"><div class="post_text"><p>'+html.feeddata[i].feeddata+'</p></div>';
+                            if(html.feeddata[i].imagename[0] && html.feeddata[i].imagename[0].image != ""){
+                                //feed_img = html.feeddata[i].imagename[0].image;
+                                posts +='<div class="post_img"><img src="'+base_url+'/images/'+html.feeddata[i].imagename[0].image+'" alt=""></div>';
+                            }
+                             posts +='</div></div></a></div>';
+                       all_feeds += posts;
+                        
+                    }
+
+                    
+                }
+
+                
+                this_user_answered = [];
+
+             
+                  
+
+                var editor = "";
+                $.ajax({  
+                    url: base_url+"PollReplyJson.aspx",
+                    type: 'GET',
+                    success: function(res)
+                    {
+                        if(res.pollresult != ""){
+                            var flag_1 = 0;
+                            $.each(res.pollresult,function(ind,val){
+
+                                if(val.polluser == window.localStorage.getItem("username")){
+                                    //alert(val.pollid);
+                                    if(flag_1 == 1){
+                                        var jHtmlObject = jQuery(editor);
+                                    }else{
+                                        var jHtmlObject = jQuery(all_feeds);
+                                    }
+                                   
+                                    editor = jQuery("<p>").append(jHtmlObject);
+                                    editor.find("#post_id"+val.pollid).remove();
+                                }
+
+                                flag_1 = 1;
+
+                            });
+                           
+                            
+
+                        }
+
+                        if(pull == "yes"){
+                           // alert("dwd");
+                            setTimeout(function () {
+                                myApp.pullToRefreshDone();
+                            },1000);
+
+                        }
+
+                        $(".welcome_wrapper").html("");
+                        if(editor == ""){
+                            $(".welcome_wrapper").append(all_feeds);
+
+                        }else{
+                            $(".welcome_wrapper").append(editor.html());
+
+                        }
+                        myApp.hidePreloader();
+                        
+
+                    }
+                });
+
+                
+             
+
+            }, 
+            error: function (error) {
+                   myApp.hidePreloader();
+
+            }
+        });
+
+        
+}
+
+
+$$(document).on('pageInit', function (e) {
+
+    var page = e.detail.page;
+
+    // Code for Services page
+    if (page.name === 'set_password') {
+        //myApp.alert('Here comes our services!');
+        
+           
+    }
+
+    if (page.name === 'login_page') {
+        // personal no : 90000245
+        // National id : 41818266646
+     
+        setTimeout(function () {
+            if(!window.localStorage.getItem("username") ){
+                // $('.preloader_page').fadeOut();
+                // $('.app_login_page').fadeIn();
+                $("#login_submit").on("click",function(){
+                    if($("#per_no").val() != ""){
+                        if($("#nation_id").val() != ""){
+                            //valid submit form
+                            
+                            myApp.showPreloader();
+
+                            $.ajax({  
+                                url: base_url+"validateuser.aspx",
+                                type: 'POST',
+                                data:{
+                                    __VIEWSTATE:"/wEPDwULLTEzNjkxMzkwNjRkZMcDtn8G80lBWAjmDUqA3qANQog/mi8nLuEhQX4KQRgD",
+                                    __EVENTVALIDATION:"/wEWBAL5t4nDDgL/+tbVAgL/+qKhBALCi9reA5A6SYIXqh8Uuv6peyERzZeA+NLW5MTyYTlKCqlGSHST",
+                                    txtUid:$("#per_no").val(),
+                                    txtNid:$("#nation_id").val(),
+                                    btnSubmit:"Submit"
+
+                                },
+                                success: function(html)
+                                {
+                                    myApp.hidePreloader(); 
+
+
+                                    
+                                    if(html.userverified == "YES"){
+                                        //myApp.alert('giriş başarılı', 'EFES');
+                                        window.localStorage.setItem("username",$("#per_no").val());
+
+                                        //.myApp.showPreloader();
+
+                                        // $.ajax({
+                                        //     url: base_url+"getperdtl.aspx",
+                                        //     type: 'POST',
+                                        //     data:{__VIEWSTATE:"/wEPDwULLTEzMTc4NjY3NThkZC4hb0xCHGU61Y4+Y9cnP5BJH2DpY7+iWv7JDN3k4og9",__EVENTVALIDATION:"/wEWAwK64+CKCALnp8nWCALCi9reA/e+ezefxx0poHeg0s5mcj4Ir2M2bsevOVPr6M/P29VY",txtUid2:window.localStorage.getItem("username"),btnSubmit:"Submit"},
+                                        //     success: function(html){
+                                        //         if(html.usersearch){
+                                        //             val = html.usersearch[0];
+                                        //             window.localStorage.setItem("user_feed_name",val.name);
+                                                   
+                                        //            // myApp.hidePreloader(); 
+                                                  
+                                        //         }
+
+                                        //     }
+                                        // });
+
+
+
+
+
+
+
+
+
+                                        if(window.localStorage.getItem('tnc_val')){
+                                            mainView.router.loadPage('wel_page.html');
+
+                                        }else{
+                                            mainView.router.loadPage('tnc_page.html');
+
+                                        }
+
+
+
+
+                                    }else{
+                                         myApp.alert(html.userverified, 'EFES');
+                                    }
+                                    // 
+                                    
+                                   
+                                }
+                            });
+
+
+
+                        }else{
+                           myApp.alert('TC Kimlik No gerekli.', 'EFES');
+                        }
+                    }else{
+                           myApp.alert('Personel No gerekli.', 'EFES');
+
+                    }
+               });
+            }else{
+              
+                mainView.router.loadPage('wel_page.html');
+
+            }
+         
+        }, 1000);
+            
+
+       // myApp.alert('Here comes our login!');
+        // $('.preloader_page').delay(2000).fadeOut();
+        // $('.app_login_page').delay(2000).fadeIn();
+        // mainView.router.loadPage('wel_page.html');
+
+       // 
+       //alert(window.localStorage.getItem("username")); 
+      
+    }
+    if (page.name === 'tnc_page') {
+
+        $(".tnc_accept_btn").on("click",function(){
+            window.localStorage.setItem('tnc_val', 'yes');
+            mainView.router.loadPage('wel_page.html');
+
+        });
+
+
+       
+
+       
+    }
+    if (page.name === 'wel_page') {
+     
+        
+     
+        myApp.showPreloader();
+
+        
+        get_feeds("no");
+
+
+        // Pull to refresh content
+        var ptrContent = $$('.pull-to-refresh-content');  
+
+        // Add 'refresh' listener on it
+        ptrContent.on('refresh', function (e) {
+            get_feeds("yes");
+       
+            
+        });
+        
+
+
+
+
+    }
+
+    if (page.name === 'feed_photo') {
+
+       // alert(page.query.uid);
+        $(".swiper-button-next").hide();
+        $(".swiper-button-prev").hide();
+        myApp.showPreloader();
+
+        $.ajax({  
+            url: base_url+"getuniqfeed.aspx?UID="+page.query.uid,
+            type: 'GET',
+            success: function(html)
+            {
+                console.log(html);
+
+                //alert(html.feeddata[0].username);
+                //<div class="swiper-slide"><img src="images/feed_photo.jpg" class="slider_img" alt=""></div>
+                var date_time = html.feeddata[0].uploaddate;
+                var time_ago = jQuery.timeago(date_time);
+
+                $("#ex_time_ago").html(time_ago);
+                $("#username").html(html.feeddata[0].username);
+                $("#feeddata").html(html.feeddata[0].feeddata);
+                $("#likes").html(html.feeddata[0].likes);
+
+                var images = html.feeddata[0].imagename;
+
+                for(var i=0;i<images.length;i++){
+                    //alert(images[i].image);
+                    $("#images").append('<div class="swiper-slide"><img src="'+base_url+'/images/'+images[i].image+'" class="slider_img" alt=""></div>');
+                }
+
+                $("#feed_photo_profile").css("background-image","url("+base_url+html.feeddata[0].image+")");
+                // $.each(abc.feeddata[0].imagename,function(index,value){
+                //     alert(value.image);
+                //     $("#images").append('<div class="swiper-slide"><img src="'+base_url+'/images/'+value.image+'" class="slider_img" alt=""></div>');
+                // });
+
+                if(images.length >=1){
+                    var mySwiper = myApp.swiper('.swiper-container', {
+                      autoHeight:true,
+
+                      pagination: '.swiper-pagination',
+                      paginationHide: false,
+                      paginationClickable: true,
+                      nextButton: '.swiper-button-next',
+                      prevButton: '.swiper-button-prev',
+                    });
+                }
+                //Slider
+                
+
+
+                if(images.length >1){
+                    $(".swiper-button-next").show();
+                    $(".swiper-button-prev").show();
+                }
+
+                myApp.hidePreloader();
+
+
+               
+
+
+
+                
+            }
+        });
+        $("#feed_photo_like").on("click",function(){
+            if(window.localStorage.getItem("username")){
+                var feed_id = page.query.uid;
+                var user_name = window.localStorage.getItem("username");
+
+                instance_div = $(this);
+
+                $.ajax({
+                    url: base_url+"Likes.aspx",
+                    type: 'POST',
+                    data:{__VIEWSTATE:"/wEPDwUKLTcxMjI4Mjc5NmRkheNW8Uakr4Rpt3oZRbKJUr7F+u3dH1uHVuGOxty20PE=",__EVENTVALIDATION:"/wEWBAKdosu1DgKl1bKzCQKfrtLtCALCi9reAwpFVJ8BFl4CJMfz5eTJNDu8R9suDeCCfDIfMNnoIuE6",txtUserName:user_name,txtFeedId:feed_id,submit:"Submit"},
+                    //data:{device_uid:'123456'},
+                
+                    success: function(html){
+                        //alert(html);
+
+                        if(html.likesadded == "YES"){
+                           var likes =  instance_div.siblings('#likes').html();
+                           likes = likes/1;
+                           likes++;
+                           instance_div.siblings('#likes').html(likes);
+                        }
+
+
+                      
+                    }
+                });
+            }else{
+
+                mainView.router.loadPage('login_page.html');
+
+            }
+
+        });
+
+
+       
+        
+       
+    }
+
+
+    if (page.name == 'opportunities_detail') {
+        
+        $("#all_opportunities_detail").html(opportunities_list);
+        
+    }
+
+    if (page.name == 'opportunities') {
+       // alert("opp");
+        myApp.showPreloader();
+
+        $.ajax({  
+            url: base_url+"FirsatlarGet.aspx?tkcn="+window.localStorage.getItem("username"),
+            type: 'GET',
+            success: function(html)
+            {
+                console.log(html);
+
+                $("#all_opportunities").html("");
+                $.each(html.firsatlar,function(index,value){
+                   // alert(value.dept);
+                   
+                    var date_ = value.date.split(" ");
+
+                    var read_ = "";
+                    if(value.read == "NO"){
+                        read_ = "news_circle_bg";
+                    }
+                    var opportunities = '<div class=" news_wrap_opportunities" alt="'+value.firid+'"><div class="row" style="padding-top: 5px;"><div class="col-100"><div class="row"><div class="col-66"><div class="news_circle '+read_+'"></div><div class="news_heading"><p>'+value.title.substring(0,20)+'</p></div></div><div class="col-33"><div class="news_date"><p>'+date_[0]+'</p></div></div></div></div><div class="col-100"><div class="news_text"><p>'+value.text.substring(0,100)+'</p><span class="news_arrow"><i class="fa fa-chevron-right"></i></span></div></div></div></div>'
+
+
+
+
+                    $("#all_opportunities").append(opportunities);
+                });
+              
+
+                myApp.hidePreloader();
+
+
+            }
+        });
+
+        
+        var ptrContent = $$('.pull-to-refresh-content');  
+        ptrContent.on('refresh', function (e) {
+            //myApp.showPreloader();
+
+            $.ajax({  
+                url: base_url+"FirsatlarGet.aspx?tkcn="+window.localStorage.getItem("username"),
+                type: 'GET',
+                success: function(html)
+                {
+                    console.log(html);
+
+                    $("#all_opportunities").html("");
+                    $.each(html.firsatlar,function(index,value){
+                       // alert(value.dept);
+                        var date_ = value.date.split(" ");
+                        var read_ = "";
+                        if(value.read == "NO"){
+                            read_ = "news_circle_bg";
+                        }
+                        var opportunities = '<div class=" news_wrap_opportunities" alt="'+value.firid+'"><div class="row" style="padding-top: 5px;"><div class="col-100"><div class="row"><div class="col-66"><div class="news_circle '+read_+'"></div><div class="news_heading"><p>'+value.title.substring(0,20)+'</p></div></div><div class="col-33"><div class="news_date"><p>'+date_[0]+'</p></div></div></div></div><div class="col-100"><div class="news_text"><p>'+value.text.substring(0,100)+'</p><span class="news_arrow"><i class="fa fa-chevron-right"></i></span></div></div></div></div>'
+
+
+
+
+                        $("#all_opportunities").append(opportunities);
+                    });
+                   
+
+                    //myApp.hidePreloader();
+                    setTimeout(function () {
+                        myApp.pullToRefreshDone();
+                    },2000);
+
+                }
+            });
+
+        });
+
+
+
+    }
+
+    if (page.name == 'announcement_detail') {
+        // alert(announcements_list);
+        // console.log(announcements_list);
+
+        $("#all_announcements_detail").html(announcements_list);
+        
+    }
+
+
+    if (page.name == 'announcements') {
+        var toggle_ind = 0;
+        var department_type = "DEPT=ALL";
+        $('.all_news_btn').click(function () {
+
+            //$('.all_news_dd').slideToggle(1000);
+            //
+            if(toggle_ind == 0){
+                toggle_ind = 1;
+                var hei =  $(".all_news_dd").prop('scrollHeight');
+                $(".all_news_dd").animate({height:hei},500);
+            }else{
+                toggle_ind = 0;
+                $(".all_news_dd").animate({height:0},500);
+            }
+
+            $('.up_arrow').toggle();
+            if($('.down_arrow').hasClass('down_arrow_class')){
+                $('.down_arrow').removeClass("down_arrow_class");
+            }else{
+                $('.down_arrow').addClass("down_arrow_class");
+            }
+        });
+      // alert(department_type);
+
+        myApp.showPreloader();
+        //
+         // html = {  "announcements": [ { "dept": "Genel Duyurular ", "title": "genel duyuruyorum hejdghwdfh gdfgh", "date": "31/03/2016 21:46", "text": "eveve Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },{ "dept": "Genel Duyurular", "title": "Duyuruyorum", "date": "29/03/2016 22:24", "text": "asdasdasd" },{ "dept": "Satis Ve Pazarlama", "title": "Test2", "date": "18/02/2016 20:50", "text": "Test Ann2" },{ "dept": "Genel Duyurular", "title": "Test1", "date": "17/02/2016 20:50", "text": "Test Ann1" } ] , "polldata": [ ]  }
+        $.ajax({  
+            url: base_url+"getannouncements.aspx?"+department_type+"&tkcn="+window.localStorage.getItem("username"),
+            type: 'GET',
+            success: function(html)
+            {
+                //console.log(html);
+
+                // alert("dewd");
+                $("#all_announcements").html("");
+                if(html.announcements){
+                    //announcements_list;
+                        $.each(html.announcements,function(index,value){
+                       // alert(value.dept);
+                        var date_ = value.date.split(" ");
+                        var read_ = "";
+                        if(value.read == "NO"){
+                            read_ = "news_circle_bg";
+                        }
+
+                        var anouncements = '<div class="news_wrap" alt="'+value.announcementid+'" type="Announcements"><div class=""><div class="col-100"><div class="news_title"><p>'+value.dept+'</p></div></div><div class="col-100"><div class="row"><div class="col-66"><div class="news_circle '+read_+'"></div><div class="news_heading"><p>'+value.title.substring(0,20)+'</p></div></div><div class="col-33"><div class="news_date"><p>'+date_[0]+'</p></div></div></div></div><div class="col-100"><div class="news_text"><p>'+value.text.substring(0,100)+'</p><span class="news_arrow"><i class="fa fa-chevron-right"></i></span></div></div></div></div>';
+
+                        $("#all_announcements").append(anouncements);
+                    });
+                }
+
+                
+                
+                myApp.hidePreloader();
+
+
+                var ptrContent = $$('.pull-to-refresh-content');  
+                ptrContent.on('refresh', function (e) {
+                    //myApp.showPreloader();
+
+                    $.ajax({  
+                        url: base_url+"getannouncements.aspx?"+department_type+"&tkcn="+window.localStorage.getItem("username"),
+                        type: 'GET',
+                        success: function(html)
+                        {
+                            //console.log(html);
+
+                            
+                            $("#all_announcements").html("");
+                            if(html.announcements){
+                                //announcements_list;
+                                    $.each(html.announcements,function(index,value){
+                                   // alert(value.dept);
+                                    var date_ = value.date.split(" ");
+                                    var read_ = "";
+                                    if(value.read == "NO"){
+                                        read_ = "news_circle_bg";
+                                    }
+
+                                    var anouncements = '<div class="news_wrap" alt="'+value.announcementid+'" type="Announcements" ><div class=""><div class="col-100"><div class="news_title"><p>'+value.dept+'</p></div></div><div class="col-100"><div class="row"><div class="col-66"><div class="news_circle '+read_+'"></div><div class="news_heading"><p>'+value.title.substring(0,20)+'</p></div></div><div class="col-33"><div class="news_date"><p>'+date_[0]+'</p></div></div></div></div><div class="col-100"><div class="news_text"><p>'+value.text.substring(0,100)+'</p><span class="news_arrow"><i class="fa fa-chevron-right"></i></span></div></div></div></div>';
+
+                                    $("#all_announcements").append(anouncements);
+                                });
+                            }
+
+                            // $(".news_wrap").on("click",function(){
+                            //     announcements_list = $(this).html();
+                            //     mainView.router.loadPage('announcement_detail.html');
+                            // });
+                            //myApp.hidePreloader();
+                            setTimeout(function () {
+                                myApp.pullToRefreshDone();
+                            },2000);
+
+                        }
+                    });
+
+                });
+
+                
+            }
+        });
+
+        $(".announcement_type").on("click",function(){
+            $('.all_news_btn').click();
+
+            var type = $(this).attr("alt");
+
+            //console.log($(this).children('a').text());
+            //
+            $("#type_head").text($(this).children('a').text());
+            if(type != "DEPT=ALL"){
+               
+                $(".all_categories").show();
+            }else{
+              
+
+                $(".all_categories").hide();
+
+            }
+
+
+            if(type != department_type && type != ""){
+                myApp.showPreloader();
+                department_type = type;
+                $.ajax({  
+                    url: base_url+"getannouncements.aspx?"+department_type+"&tkcn="+window.localStorage.getItem("username"),
+                    type: 'GET',
+                    success: function(html)
+                    {
+                        //console.log(html);
+
+                       
+                        $("#all_announcements").html("");
+                        if(html.announcements){
+                            $.each(html.announcements,function(index,value){
+                                //alert(value.dept);
+                                var date_ = value.date.split(" ");
+                                var read_ = "";
+                                if(value.read == "NO"){
+                                    read_ = "news_circle_bg";
+                                }
+
+                                var anouncements = '<div class="news_wrap" alt="'+value.announcementid+'" type="Announcements" ><div class=""><div class="col-100"><div class="news_title"><p>'+value.dept+'</p></div></div><div class="col-100"><div class="row"><div class="col-66"><div class="news_circle '+read_+'"></div><div class="news_heading"><p>'+value.title.substring(0,20)+'</p></div></div><div class="col-33"><div class="news_date"><p>'+date_[0]+'</p></div></div></div></div><div class="col-100"><div class="news_text"><p>'+value.text.substring(0,100)+'</p><span class="news_arrow"><i class="fa fa-chevron-right"></i></span></div></div></div></div>';
+
+                                $("#all_announcements").append(anouncements);
+                            });
+                        }
+                        // $(".news_wrap").on("click",function(){
+                        //     announcements_list = $(this).html();
+                        //     mainView.router.loadPage('announcement_detail.html');
+                        // });
+
+                        myApp.hidePreloader();
+
+                        var ptrContent = $$('.pull-to-refresh-content');  
+                        ptrContent.on('refresh', function (e) {
+                            //myApp.showPreloader();
+
+                            $.ajax({  
+                                url: base_url+"getannouncements.aspx?"+department_type+"&tkcn="+window.localStorage.getItem("username"),
+                                type: 'GET',
+                                success: function(html)
+                                {
+                                    //console.log(html);
+
+                                    // alert("dewd");
+                                    $("#all_announcements").html("");
+                                    if(html.announcements){
+                                        //announcements_list;
+                                            $.each(html.announcements,function(index,value){
+                                           // alert(value.dept);
+                                            var date_ = value.date.split(" ");
+                                            var read_ = "";
+                                            if(value.read == "NO"){
+                                                read_ = "news_circle_bg";
+                                            }
+                                            var anouncements = '<div class="news_wrap" alt="'+value.announcementid+'" type="Announcements" ><div class=""><div class="col-100"><div class="news_title"><p>'+value.dept+'</p></div></div><div class="col-100"><div class="row"><div class="col-66"><div class="news_circle '+read_+'"></div><div class="news_heading"><p>'+value.title.substring(0,20)+'</p></div></div><div class="col-33"><div class="news_date"><p>'+date_[0]+'</p></div></div></div></div><div class="col-100"><div class="news_text"><p>'+value.text.substring(0,100)+'</p><span class="news_arrow"><i class="fa fa-chevron-right"></i></span></div></div></div></div>';
+
+                                            $("#all_announcements").append(anouncements);
+                                        });
+                                    }
+
+                                    // $(".news_wrap").on("click",function(){
+                                    //     announcements_list = $(this).html();
+                                    //     mainView.router.loadPage('announcement_detail.html');
+                                    // });
+                                    //myApp.hidePreloader();
+                                    setTimeout(function () {
+                                        myApp.pullToRefreshDone();
+                                    },2000);
+
+                                }
+                            });
+
+                        });
+                        
+                    }
+                });
+            }
+            
+        });
+
+
+    }
+
+    if(page.name == "post"){
+
+       var image_file_uri = "";
+       selected_images = new Array();
+       var unique_data_id = "";
+       var image_count = 1;
+        $("#customText").MaxLength(
+        {
+            MaxLength: 360,
+            CharacterCountControl: $('#counter')
+        });
+
+       
+        $("#img_upload_btn").on("click",function(){
+             nitesh();    
+            // //alert("click 1");
+            // if($("#customText").val() != ""){
+            //     nitesh();    
+            // }else{
+            //     //myApp.alert('');
+            //     myApp.alert('Text field is required !', 'EFES');
+            // }
+
+        });
+
+        function nitesh(){
+
+           // alert("dqw");
+            // navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+            //     destinationType: Camera.DestinationType.FILE_URI,
+            //     sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
+            window.imagePicker.getPictures(
+                function(results) {
+                    selected_images = [];
+                    for (var i = 0; i < results.length; i++) {
+                        selected_images[i] = results[i];
+                        //alert(results[i]);
+                        // var img = new Image();
+                        // img.src = results[i];
+
+                       // alert(img);
+                        $('#multi_img').append('<div class="multiple_img_upload"><img src="'+selected_images[i]+'" alt="" id="nitesh_img"></div>');
+                       // uploadPhoto(results[i]);
+                    }
+                    // $(".multiple_cross_btn").on("click",function(){
+                    //     $(this).parent().remove();
+                    //     image_file_uri = "";
+                    // });
+
+                    
+                }, function (error) {
+                    alert('Error: ' + error);
+
+                },{
+                    maximumImagesCount: 4,
+                    quality: 70
+                }
+            );
+        }
+
+
+        function onSuccess(imageURI) {
+            image_file_uri = imageURI;
+            $('#multi_img').append('<div class="col-50 multiple_img_upload"><img src="'+imageURI+'" alt="" id="nitesh_img"><div class="multiple_cross_btn"><i class="fa fa-close"></i></div></div>');
+
+            $(".multiple_cross_btn").on("click",function(){
+                $(this).parent().remove();
+                image_file_uri = "";
+            });
+
+              
+           
+        }
+ 
+        function win(r) {
+            myApp.hidePreloader();
+           // alert(r.response);
+
+            data = JSON.parse(r.response);
+
+            if(data.error == "NONE" && data.uniqueid != ""){
+                unique_data_id = data.uniqueid;
+                 if(selected_images[image_count]){
+                    upload_extra_img(selected_images[image_count]);
+                }else{
+                    myApp.hidePreloader();
+                    mainView.router.loadPage('wel_page.html');
+
+                }
+            }
+
+            if(data.error && data.error != "NONE"){
+                myApp.alert(data.error, 'Error');
+
+            }
+
+            if(data.result == "SAVED"){
+                image_count++;
+                if(selected_images[image_count]){
+                    upload_extra_img(selected_images[image_count]);
+                }else{
+
+                    myApp.hidePreloader();
+                    mainView.router.loadPage('wel_page.html');
+
+                }
+                
+            }
+
+            $("#customText").val("");
+            $('#multi_img').html("");
+            
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+        }
+        function upload_extra_img(image_uri){
+            myApp.showPreloader("Yükleniyor.");
+
+            imageURI = image_uri;
+
+            date = new Date();
+            var file_nitesh = imageURI.substr(imageURI.lastIndexOf('/')+1);
+            file_extn = file_nitesh.substr(file_nitesh.lastIndexOf('.'));
+            var options = new FileUploadOptions();
+            options.fileKey="fuImage";
+           // options.fileName="extra_"+imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.fileName="extra_"+date.getDate()+"_"+date.getTime()+file_extn;
+           
+            options.mimeType="image/jpeg";
+            options.chunkedMode = false;
+
+            options.headers = {
+
+                Connection: "close"
+
+            };
+
+            var params = {};
+            params.__VIEWSTATE = "/wEPDwUKLTU2MTQ1ODc3OQ9kFgICAw8WAh4HZW5jdHlwZQUTbXVsdGlwYXJ0L2Zvcm0tZGF0YWRkPp0NOQAB3hTr3bJFoLCzZzoazqcvFSRKznoa4EGO3tE=";
+            params.__EVENTVALIDATION = "/wEWAwLumq8xAomo5ogEAsKL2t4DqqCCl9KWrk2W/fZWpTrQjalKHNuBSZj1xpTF5M1Khuw=";
+            params.txtUniqId = unique_data_id;
+            params.btnSubmit = "Submit";
+            options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI, encodeURI("http://95.130.170.228/EpesData/GetImage.aspx"), win, fail, options);
+        }
+
+        function fail(error) {
+            $("#customText").val("");
+            $('#multi_img').html("");
+            myApp.hidePreloader();
+            alert("An error has occurred: Code = " + error.code);
+            //$("#loader").hide();
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }
+
+        function onFail(message) {
+          alert('Failed because: ' + message);
+        }
+
+        $("#post_page_submit").on("click",function(){
+            if(window.localStorage.getItem("username")){
+
+                //if($("#customText").val() != ""){
+                    if(selected_images[0]){
+                        myApp.showPreloader("Yükleniyor.");
+
+                        imageURI = selected_images[0];
+
+                        date = new Date();
+                        var file_nitesh = imageURI.substr(imageURI.lastIndexOf('/')+1);
+                        file_extn = file_nitesh.substr(file_nitesh.lastIndexOf('.'));
+
+
+                        var options = new FileUploadOptions();
+                        options.fileKey="fuImage";
+                        //options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+                        options.fileName="main_"+date.getDate()+"_"+date.getTime()+file_extn;
+                        options.mimeType="image/jpeg";
+                        options.chunkedMode = false;
+
+                        options.headers = {
+
+                            Connection: "close"
+
+                        };
+
+                        var params = {};
+                        params.__VIEWSTATE = "/wEPDwUJLTg2MTA1NTA1D2QWAgIDDxYCHgdlbmN0eXBlBRNtdWx0aXBhcnQvZm9ybS1kYXRhZGSThzPq+sIy3XZX27TSz9oWjYA39FQrXGbJOV7gFT0W1Q==";
+                        params.__EVENTVALIDATION = "/wEWBQKe6q+uBAKl1bKzCQL9orimCgK8hOCtCALCi9reAwbkTFlr3vADfRAbAJpgnErbmV7RBgtmSSqDlvVuFcxV";
+                        params.txtUserName = window.localStorage.getItem("username");
+                        params.txtFeedData = $("#customText").val();
+                        params.txtLikes = "0";
+                        params.btnSubmit = "Submit";
+                        options.params = params;
+
+                        var ft = new FileTransfer();
+                        ft.upload(imageURI, encodeURI("http://95.130.170.228/EpesData/getdata.aspx"), win, fail, options);
+                    }else{
+                        //myApp.alert('Image is required !', 'EFES');
+                        
+                        $.ajax({
+                            url: base_url+"getdata.aspx",
+                            type: 'POST',
+                            data:{__VIEWSTATE:"/wEPDwUJLTg2MTA1NTA1D2QWAgIDDxYCHgdlbmN0eXBlBRNtdWx0aXBhcnQvZm9ybS1kYXRhZGSThzPq+sIy3XZX27TSz9oWjYA39FQrXGbJOV7gFT0W1Q==",__EVENTVALIDATION:"/wEWBQKe6q+uBAKl1bKzCQL9orimCgK8hOCtCALCi9reAwbkTFlr3vADfRAbAJpgnErbmV7RBgtmSSqDlvVuFcxV",txtFeedData:$("#customText").val(),txtUserName:window.localStorage.getItem("username"),txtLikes:"0",btnSubmit:"Submit",fuImage:""},
+                            success: function(html){
+                                //alert(html);
+
+                                $("#customText").val("");
+                                $('#multi_img').html("");
+
+                                myApp.hidePreloader();
+                                mainView.router.loadPage('wel_page.html');
+
+                               // alert(html);
+
+                               // instance_div.parent().parent().fadeOut();
+                            }
+                        });
+
+
+                    }
+                // }else{
+                //     //myApp.alert('');
+                //     myApp.alert('Text field is required !', 'EFES');
+                // }
+
+            }else{
+                mainView.router.loadPage('login_page.html');
+
+            }
+        });
+
+
+
+    
+
+       
+    }
+
+    
+
+
+    if (page.name === 'reports') {
+       
+
+        $("#report_data").html("");
+        myApp.showPreloader();
+         
+        $.ajax({  
+            url: base_url+"PdfJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                //console.log(html);
+
+                $.each(html.pdfcontent,function(ind,val){
+                    if(val.pdfcat == "RAPORLAR VE DOKUMANLAR"){
+                        //console.log(val);
+                        $("#report_data").append('<div class="col-33 repor_pdf_link" data-link = "'+base_url+'PDF/'+val.pdffilename+'"><div class="reports_box"><div class="report_pdf_name"><p>'+val.pdffilename.substring(0,10)+'</p></div></div></div>');
+                    }
+                });
+
+                $(".repor_pdf_link").on("click",function(){
+                    window.open($(this).attr("data-link"), '_system', 'location=yes')
+                    
+                }); 
+
+                myApp.hidePreloader();
+
+
+            }
+
+
+        });
+       
+    }
+
+    if (page.name === 'porsedurler') {
+       
+
+        $("#porse_data").html("");
+        myApp.showPreloader();
+
+        
+         
+        $.ajax({  
+            url: base_url+"PdfJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                console.log(html);
+
+                $.each(html.pdfcontent,function(ind,val){
+                    if(val.pdfcat == "PROSEDURLER"){
+                        //console.log(val);
+                        $("#porse_data").append('<div class="col-33 repor_pdf_link" data-link = "'+base_url+'PDF/'+val.pdffilename+'"><div class="reports_box"><div class="report_pdf_name"><p>'+val.pdffilename.substring(0,10)+'</p></div></div></div>');
+                    }
+                });
+
+                $(".repor_pdf_link").on("click",function(){
+                    window.open($(this).attr("data-link"), '_system', 'location=yes')
+                    
+                }); 
+
+                myApp.hidePreloader();
+
+
+            }
+
+
+        });
+       
+    }
+
+
+
+    if (page.name === 'bira_kulturu') {
+       
+
+        $("#bira_data").html("");
+        myApp.showPreloader();
+
+         
+        $.ajax({  
+            url: base_url+"PdfJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                //console.log(html);
+
+                $.each(html.pdfcontent,function(ind,val){
+                    if(val.pdfcat == "Bira Kültürü" || val.pdfsubcat == "Bira Kültürü"){
+                        //console.log(val);
+                        $("#bira_data").append('<div class="col-33 repor_pdf_link" data-link = "'+base_url+'PDF/'+val.pdffilename+'"><div class="reports_box"><div class="report_pdf_name"><p>'+val.pdffilename.split(".")[0]+'</p></div></div></div>');
+                    }
+                });
+
+                $(".repor_pdf_link").on("click",function(){
+                    window.open($(this).attr("data-link"), '_system', 'location=yes')
+                    
+                }); 
+
+                myApp.hidePreloader();
+
+
+            }
+
+
+        });
+       
+    }
+
+
+
+
+    if (page.name === 'together') {
+
+
+
+       
+
+        $("#birarada_data").html("");
+        
+        myApp.showPreloader();
+
+       
+         
+        $.ajax({  
+            url: base_url+"PdfJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                console.log(html);
+                var i=1;
+                $.each(html.pdfcontent,function(ind,val){
+                    if(val.pdfcat == "BIRARADA DERGI"){
+
+                        if(val.thumbnail == ""){
+                            img = 'images/report_pdf.jpg';
+                        }else{
+                            img = base_url+'PDF/'+val.thumbnail;
+                        }
+                        //console.log(val);
+                        $("#birarada_data").prepend('<div class="col-33 repor_pdf_link" data-link = "'+base_url+'PDF/'+val.pdffilename+'"><div class="together_box"><img src="'+img+'" alt=""><div class="together_number"><p> SAYI '+i+'</p></div></div></div>');
+                        i++;
+                    }
+                });
+
+                $(".repor_pdf_link").on("click",function(){
+                    window.open($(this).attr("data-link"), '_system', 'location=yes')
+                    
+                }); 
+
+                myApp.hidePreloader();
+
+
+            }
+
+
+        });
+       
+    }
+
+
+    if (page.name === 'brands') {
+       
+
+        $("#brands_data").html("");
+        
+        myApp.showPreloader();
+        
+       
+       
+         
+        $.ajax({  
+            url: base_url+"BrandJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                //console.log(html);
+
+                $.each(html.brands,function(ind,val){
+                     $("#brands_data").append('<div class="col-33 brand_wrap"><a href="brand_details.html?brand_id='+val.brandid+'"><div class="brands_box" style="background-image: url('+base_url+'Brands/'+val.brandlogo+');"></div></a></div>');
+                    
+                });
+
+               
+
+                myApp.hidePreloader();
+
+
+            }
+
+
+        });
+       
+    }
+
+    if (page.name === 'brand_details') {
+       
+        brand_id = page.query.brand_id;
+       
+
+
+       
+        
+        myApp.showPreloader();
+       
+      //html = {  "brands": [ { "brandid": "24", "brandname": "Efes Pilsen", "brandlogo": "Efes-Pilsen-Emblem-Process_thumb.png", "brandbanner": "efes_pilsen_big.jpg", "brandcontent": "Burunda hafifçe hissedilen malt aromaları ve şerbetçiotundan gelen tatlar, damakta orta seviyede acılık hissettiren, hafif-orta gövdeli lager bira.", "uploaddate": "4/1/2016 9:35:12 AM", "title2": "", "description": "", "category": "Orta Üstü Acılıkta Lager Bira", "service": "%5", "derece": "4-6 C", "ambalaj": "30 cl. / 50 cl. Steine Şişe (Depozitolu) 50 cl. Çek-Aç Kapak Şişe (Depozitolu) 33 cl. / 50 cl. / Tekyön Şişe 33 cl. Sleek Kutu 50 cl. Kutu / 1 lt. Kutu", "raf": "6 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_graph.png", "dolgunluk": "2", "aromatiklik": "2", "goruntu": "3", "bardak": "1,2,5" },{ "brandid": "34", "brandname": "EFES PILSEN ÖZEL SERI: 10", "brandlogo": "Efes_Pilsen_Özel_Seri_thumb.png", "brandbanner": "efes_özel_seri_big.jpg", "brandcontent": "Efes Pilsen Özel Seri: 10 numara, berrak açık sarı rengi olan ferahlatıcı lager biradır.  Burunda; hafif tahılsı aromalar hissedilir. Damakta, çok hafif acılığa sahip olan bu bira, kolay ve rahat içimi ile tam ferahlatıcı lager özelliğini ortaya koyar.", "uploaddate": "4/1/2016 9:37:12 AM", "title2": "", "description": "", "category": "Orta Acılıkta Lager Bira", "service": "%5", "derece": "4-6 C", "ambalaj": "50 cl. / 33 cl. Tekyön Şişe", "raf": "12 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_Ozel_Seri_10_graph.png", "dolgunluk": "2", "aromatiklik": "3", "goruntu": "3", "bardak": "1,7,9" },{ "brandid": "35", "brandname": "EFES PILSEN FIÇI", "brandlogo": "efes_pilsen_fici_thumb.png", "brandbanner": "Efes_fici_big.jpg", "brandcontent": "Efes Pilsen, berrak açık sarı rengi olan ferahlatıcı lager biradır. Burunda; kullanılan özel şerbetçiotundan gelen tatlar ile hafif malt aromaları hissedilir.  Hem gövdesi hem de ağızda kalıcı özelliği ile dengeli bir biradır ve daha az süre pastörizasyon işlemi gördüğü için yumuşak ve içimi kolay bir biradır.", "uploaddate": "4/1/2016 9:38:55 AM", "title2": "", "description": "", "category": "Orta Üstü Acılıkta Lager Bira", "service": "%5", "derece": "4-6 C", "ambalaj": "50 cl. Fıçı Şişe 50 cl. Fıçı Kutu", "raf": "6 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_Fici_graph.png", "dolgunluk": "2", "aromatiklik": "2", "goruntu": "3", "bardak": "1,2,5" },{ "brandid": "36", "brandname": "EFES MALT", "brandlogo": "Efes_Malt_1_thumb.png", "brandbanner": "efes_malt_big.jpg", "brandcontent": "Malttan gelen hafif ekmeğimsi ve tahılsı tatlar burunda ve damakta hissedilir. Orta-hafif gövdeli bir biradır. Bitiminde şerbetçiotundan gelen çok hafif bir acılık  hissedilir. İçim kolaylığı ile öne plana çıkar.", "uploaddate": "4/1/2016 9:40:14 AM", "title2": "", "description": "", "category": "Orta Üstü Acılıkta Lager Bira", "service": "%5", "derece": "4-6 C", "ambalaj": "50 cl. Çek-Aç Kapak Şişe (Depozitolu) 33 cl. / 50 cl. Tekyön Şişe 50 cl. / 25 cl. Kutu", "raf": "9 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_Malt_graph.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "3", "bardak": "9" },{ "brandid": "37", "brandname": "EFES LIGHT", "brandlogo": "Efes-Light-Emblem-Process_thumb.png", "brandbanner": "efes_light_big.jpg", "brandcontent": "Efes light, berrak açık sarı renkte lager bir biradır. Tam malttan elde edilen bu biranın en büyük özelliği diğer biralardan %40 daha düşük kaloriye sahip olmasıdır.  Burunda hafif limonumsu meyveler ve malt aroması hissedilir. Alkol seviyesi düşük, az acılığı olan çok kolay içimli, hafif gövdeli bir biradır. Özellikle yaz aylarında kolay içimi ile ferahlatıcı etkisi ön plana çıkacaktır.", "uploaddate": "4/1/2016 9:42:43 AM", "title2": "", "description": "", "category": "Düşük Acılıkta Lager Bira", "service": "%3", "derece": "4-6 C", "ambalaj": "33 cl. Tekyön Şişe", "raf": "12 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_Light.png", "dolgunluk": "1", "aromatiklik": "2", "goruntu": "3", "bardak": "1,2,5" },{ "brandid": "38", "brandname": "EFES XTRA", "brandlogo": "Efes-Xtra-Emblem-Process_thumb.png", "brandbanner": "efes_Xtra_Shot_big.jpg", "brandcontent": "Berrak, altın sarı renkte, yüksek alkollü lager biradır. Burunda, hafif malt ile beraber şerbetçiotu kokuları alınır. Damakta, şerbetçiotundan gelen acılığı belirgin, ağızda kalıcı etkili ve çarpıcı bir biradır.", "uploaddate": "4/1/2016 9:44:37 AM", "title2": "", "description": "", "category": "Yüksek Acılıkta Strong Lager Bira", "service": "%7,5", "derece": "4-6 C", "ambalaj": "50 cl. Çek-Aç Kapak Şişe (Depozitolu) 50 cl. / Tekyön Şişe 50 cl. / 1 lt. Kutu", "raf": "12 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_Xtra.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "3", "bardak": "5" },{ "brandid": "39", "brandname": "EFES XTRA SHOT", "brandlogo": "Efes-Xtra-Emblem-Process_thumb.png", "brandbanner": "efes_Xtra_Shot_big.jpg", "brandcontent": "Berrak, altın sarı renkte, yüksek alkollü lager biradır. Burunda, hafif malt ile beraber şerbetçiotu kokuları alınır. Damakta, şerbetçiotundan gelen acılığı baskın ve belirgin, ağızda kalıcı özelliği kuvvetli, genel olarak bakıldığında oldukça etkili ve çarpıcı bir biradır.", "uploaddate": "4/1/2016 9:46:06 AM", "title2": "", "description": "", "category": "Yüksek Acılıkta Strong Lager Bira", "service": "%9", "derece": "4-6 C", "ambalaj": "23,7 cl. Shot Kutu", "raf": "12 Ay", "ulce": "Türkiye", "spiderpath": "Efes_Pilsen_Xtra_Shot.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "3", "bardak": "5" },{ "brandid": "40", "brandname": "BOMONTI", "brandlogo": "bomonti_thumb.png", "brandbanner": "bomonti_big.jpg", "brandcontent": "Burunda maya ve  şerbetçiotundan gelen çiçeksi ve otsu kokular hissedilir. Damakta ise tam malttan gelen tahıl aromaları hissedilir. Acılığı düşük aromatik kolay içimli, lager biradır.", "uploaddate": "4/1/2016 9:48:00 AM", "title2": "", "description": "", "category": "Düsük Acilikta Lager Bira", "service": "%4,8", "derece": "4-6 C", "ambalaj": "50 cl. Çek-Aç Kapak Şişe (Depozitolu) 33 cl.  50 cl. / Tekyön Şişe 25 cl. /50 cl. Kutu", "raf": "9 Ay", "ulce": "Türkiye", "spiderpath": "Bomonti_graph.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "3", "bardak": "1" },{ "brandid": "41", "brandname": "BOMONTI FILTRESIZ", "brandlogo": "bomonti_thumb.png", "brandbanner": "bomonti_filtresiz.jpg", "brandcontent": "Bomonti Filtresiz’de, mayalar şişenin içinde kalarak biraya bulutlu bir görüntü verirken, mayadan gelen ekstra tat ve aromalar biranın aromatik profilini zenginleştirir. Bunun yanı sıra kullanılan şerbetçiotu az acılığa ve yüksek aromatik özelliğine sahiptir.  Bomonti Filtresiz’in kendine özgü çiçeksi ve hafif tahılımsı ferahlatıcı aromaları, yudumladıktan sonra damakta kalır. Dengeli, aromatik ve içimi kolay bir biradır.", "uploaddate": "4/1/2016 9:50:19 AM", "title2": "", "description": "", "category": "Düşük Acılıkta Filtre Edilmemiş Lager Bira", "service": "%4,8", "derece": "4-6 C", "ambalaj": "50 cl. Tekyön Şişe", "raf": "9 Ay", "ulce": "Türkiye", "spiderpath": "Bomonti_Filtresiz_small.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "2", "bardak": "1" },{ "brandid": "42", "brandname": "MILLER", "brandlogo": "Miller_thumb.png", "brandbanner": "miller_big.jpg", "brandcontent": "Burunda ve damakta limonumsu ve hafif tahıl tatları hissedilir, Hafif-orta  gövdeli, acılık seviyesi düşük içimi kolay, susuzluk giderici lager bir biradır.", "uploaddate": "4/1/2016 9:52:19 AM", "title2": "", "description": "", "category": "Orta Acılıkta Lager Bira", "service": "%4,7", "derece": "3-5 C", "ambalaj": "33 cl. / 50 cl. Tekyön Şişe                 50 cl. Kutu", "raf": "9 Ay", "ulce": "A.B.D", "spiderpath": "Miller_graph.png", "dolgunluk": "2", "aromatiklik": "2", "goruntu": "3", "bardak": "9" },{ "brandid": "43", "brandname": "BECKS", "brandlogo": "Beck_big.png", "brandbanner": "Becks.jpg", "brandcontent": "Burunda ekmek, maya ve malt kokuları hissedilir. Damakta malttan gelen dolgun bir his kalır. Bitiminde şerbetçiotunun acılığı kendini hissettirir.", "uploaddate": "4/1/2016 9:53:34 AM", "title2": "", "description": "", "category": "Orta Üstü Acılıkta Lager Bira", "service": "%5", "derece": "3-5 C", "ambalaj": "33 cl. / 50 cl. Tekyön Şişe                50 cl. Kutu", "raf": "4-9 Ay", "ulce": "Almanya", "spiderpath": "Beck_graph.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "3", "bardak": "3" },{ "brandid": "44", "brandname": "KOZEL", "brandlogo": "Kozel_thumb.png", "brandbanner": "kozel_big.jpg", "brandcontent": "Kozel Svetly, Çek Cumhuriyet’inin birasıdır. Açık sarı renkte, berrak lager biradır. Burunda tahıl ve malt aromaları hissedilir. Tam maltının getirdiği dolgun yapısının yanı sıra hafif hissedilen acılığı ile kolay içimli, ferahlatıcı bir biradır.", "uploaddate": "4/1/2016 9:56:44 AM", "title2": "", "description": "", "category": "Orta Üstü Acılıkta Lager Bira", "service": "%4", "derece": "4-6 C", "ambalaj": "50 cl. Tekyön Şişe", "raf": "9 Ay", "ulce": "Çek Cumhuriyeti", "spiderpath": "Kozel_Svetly_graph.png", "dolgunluk": "3", "aromatiklik": "2", "goruntu": "3", "bardak": "4" },{ "brandid": "45", "brandname": "GROLSCH", "brandlogo": "Grolsch_thumb.png", "brandbanner": "grolsch_big.jpg", "brandcontent": "Grolsch altın sarı renkte billur lager biradır. Geleneksel lager biralardan farklı olarak, kullanılan şerbetçiotu çeşitlerinden gelen büyük aromatik bir yapısı vardır. Otsu ve hafif tatlı maltımsı aroma profili, damakta orta seviyede hissedilen acılığı ile mükemmel bir denge yaratır.", "uploaddate": "4/1/2016 10:39:12 AM", "title2": "", "description": "", "category": "Yüksek Acılıkta Hollandadan İthal Lager Bira", "service": "%5", "derece": "4-6 C", "ambalaj": "45 cl. Swingtop Tekyön Şişe", "raf": "12 Ay", "ulce": "Hollanda", "spiderpath": "Grolsch_graph.png", "dolgunluk": "4", "aromatiklik": "4", "goruntu": "3", "bardak": "9" },{ "brandid": "46", "brandname": "AMSTERDAM NAVIGATOR", "brandlogo": "Amsterdam Navigator.png", "brandbanner": "amsterdam.jpg", "brandcontent": "Amsterdam Navigator, altın renginde yüksek alkollü lager bir biradır. Burunda malttan gelen hafif tahılımsı notalar hissedilir. Damakta, alkolden gelen hafif sıcaklık ile yuvarlak yapı öne çıkar. Şerbetçiotundan gelen acılık, değerine göre daha düşük algılanır. Damakta tok bir biradır.", "uploaddate": "4/1/2016 10:06:14 AM", "title2": "", "description": "", "category": "Orta Acılıkta Strong Lager Bira", "service": "%8", "derece": "4-6 C", "ambalaj": "50 cl. Kutu                                             50 cl. Tekyön Şişe                      Amsterdam 23,7 cl. Shot Kutu", "raf": "9 Ay", "ulce": "Hollanda", "spiderpath": "Amstrdam_Navigator.png", "dolgunluk": "3", "aromatiklik": "2", "goruntu": "3", "bardak": "11" },{ "brandid": "47", "brandname": "DUVEL", "brandlogo": "Duvel_thumb.png", "brandbanner": "duvel_big.jpg", "brandcontent": "Aromatik zenginliği burunda hissedilen bir bira, mayalardan gelen meyvemsi kokular ve baharatlar baskın. Muz, ananas, armut, karanfil tatları algılanır. Damakta zengin, dengeli ve kompleks bir biradır. Bitiminde ortaya hafif alkol ve şerbetçiotundan gelen acılık çıkar.", "uploaddate": "4/1/2016 10:36:00 AM", "title2": "", "description": "", "category": "Yüksek Acılıkta Belçikadan İthal Ale Bira", "service": "%8,5", "derece": "6 C", "ambalaj": "33 cl. Tekyön Şişe", "raf": "30 Ay", "ulce": "Belçika", "spiderpath": "Duvel_graph.png", "dolgunluk": "4", "aromatiklik": "5", "goruntu": "2", "bardak": "7" },{ "brandid": "48", "brandname": "PERONI", "brandlogo": "Peroni_thumb.png", "brandbanner": "peroni_big.jpg", "brandcontent": "Burunda şerbetçiotu aromaları ile beraber meyve ve maya aromaları  hissedilir. Diğer biralardan farklı olarak, kullanılan mısırın hafif tatlımsı aroması da burunda belirgindir. Damakta, hafif bir malt tadı ile beraber hafif bir şerbetçiotu acılığı ortaya çıkar.", "uploaddate": "4/1/2016 10:34:09 AM", "title2": "", "description": "", "category": "Orta Üstü Acılıkta İtalyadan İthal Lager Bira", "service": "%5,1", "derece": "3-5 C", "ambalaj": "33 cl. Tekyön Şişe", "raf": "9 Ay", "ulce": "Italya", "spiderpath": "Peroni_graph.png", "dolgunluk": "3", "aromatiklik": "3", "goruntu": "3", "bardak": "10" },{ "brandid": "49", "brandname": "SAMUEL ADAMS", "brandlogo": "Samuel_Adams_thumb.png", "brandbanner": "samuel_adams_big.jpg", "brandcontent": "Amerika’nın en ünlü ve köklü craft biralarından Samuel Adams Boston Lager, parlak amber renkli, lager bir biradır. Burunda, şerbetçiotundan gelen çok karakteristik çam, reçine ve portakalımsı aromalar hissedilir. Hafif kavrulmuş karamel malt, biraya canlı amber rengini verirken karamelimsi ve kızarmış ekmeğimsi  aromalar kazandırır. Damakta ise acılığı hissedilen, aromatik ve dolgun gövdeli bir biradır. Hafif karamelimsi malt aromaları ile ferahlatıcı narenciye aromaları damakta da kendini belli eder. Ağızda kalıcı, sıra dışı bir biradır.", "uploaddate": "4/1/2016 10:31:49 AM", "title2": "", "description": "", "category": "Yüksek Acılıkta A.B.Dden İthal Amber Lager Bira", "service": "%4,7", "derece": "4-6 C", "ambalaj": "35,5 cl. Tekyön Şişe", "raf": "12 Ay", "ulce": "A.B.D", "spiderpath": "Samuel_Adams_graph.png", "dolgunluk": "4", "aromatiklik": "4", "goruntu": "3", "bardak": "8" },{ "brandid": "50", "brandname": "ERDINGER", "brandlogo": "Erdinger_thumb.png", "brandbanner": "erdinger_big.jpg", "brandcontent": "Puslu, altın renkte, bir ale bira. Parlak ve belirgin beyaz köpüğe sahip. Burunda, turunçgil ve karanfil aromaları hissedilir. Damakta, yine özellikle turunçgil meyvelerinin öne çıktığı, bitiminde şerbetçiotundan gelen ferahlatıcı aromaların belirdiği, orta hafif gövdeli, diğer biralardan ayrışan özel bir ale bira.", "uploaddate": "4/1/2016 10:23:38 AM", "title2": "", "description": "", "category": "Düşük Acılıkta Buğday Birası Almanyadan İthal Weissbier", "service": "%5,3", "derece": "4-6 C", "ambalaj": "33 cl. Tekyön Şişe", "raf": "12 Ay", "ulce": "Almanya", "spiderpath": "Erdinger_graph.png", "dolgunluk": "3", "aromatiklik": "4", "goruntu": "2", "bardak": "6" },{ "brandid": "51", "brandname": "MARMARA GOLD", "brandlogo": "Marmara_Gold_thumb.png", "brandbanner": "marmara_big.jpg", "brandcontent": "Marmara Gold, tam malt, sarı renkte lager biradır. Burunda, tahılımsı notalar taşır. Damakta, acılığı düşük, içim kolaylığı ile öne çıkan, bir biradır.", "uploaddate": "4/1/2016 10:25:27 AM", "title2": "", "description": "", "category": "Açık Renkli Lager Bira", "service": "%4,1", "derece": "6-8 C", "ambalaj": "50 cl. Kutu                               1 lt. Çevir- Aç Kapak Şişe", "raf": "9 Ay", "ulce": "Türkiye", "spiderpath": "Marmara_Gold.png", "dolgunluk": "3", "aromatiklik": "2", "goruntu": "3", "bardak": "5" } ] };
+         
+        $.ajax({  
+            url: base_url+"BrandJson.aspx",
+            type: 'GET',
+            success: function(html)
+            {
+                //console.log(html);
+
+                $.each(html.brands,function(ind,val){
+                     if(val.brandid == brand_id){
+                        $("#brand_banner").css("background","url('"+base_url+'Brands/'+val.brandbanner+"')");
+                        $("#brand_banner").css("background-size","cover");
+
+                        $("#brand_banner").css("background-position","top");
+
+                        $("#brand_name").text(val.brandname);
+                        $("#brand_content").text(val.brandcontent);
+
+
+                        $("#profile_title").text(val.title2);
+                        $("#brand_desc").text(val.description);
+
+                        $("#brand_cat").text(val.category);
+                        $("#brand_service").text(val.service);
+                        $("#brand_derece").text(val.derece);
+                        $("#brand_ambalaj").text(val.ambalaj);
+                        $("#brand_raf").text(val.raf);
+                        $("#brand_ulce").text(val.ulce);
+                        $("#spiderpath").attr("src",base_url+'Brands/'+val.spiderpath);
+
+                        $("#dolgun").attr("src","images/dolgunluk/"+val.dolgunluk+".png");
+                        $("#aromatik").attr("src","images/aromatiklik/"+val.aromatiklik+".png");
+                        $("#goruntu").attr("src","images/goruntu/"+val.goruntu+".png");
+
+                        bardak = val.bardak.split(",");
+
+
+                        $.each(bardak,function(ind,va){
+                            $("#bardak").append('<div class="col-33 open-popup" data-popup=".popup-bardak" ><div class="brand_icon_detail"><img src="images/bardak/'+va+'.png" alt=""><p>Bardak</p></div></div>');
+                        });
+                        //$("#bardak").attr("src","images/bardak/"+val.bardak+".png");
+
+
+                        $(".bardak_icon").on("click",function(){
+                            //alert("ed");
+                            $("#bardak_pop_up").css('display','block');
+                        });
+
+                        $("#bardak_pop_close").on("click",function(){
+                            //alert("ed");
+                            $("#bardak_pop_up").css('display','none');
+                        });
+
+
+
+
+
+                     }
+                    
+                });
+
+               
+
+                myApp.hidePreloader();
+
+
+               
+
+            }
+
+                
+
+
+
+
+        });
+
+
+    }
+
+
+    if (page.name === 'about_us') {
+        
+        $("#tarich").on("click",function(){
+
+            iabRef = window.open('http://anadoluefes.com.tr/hakkimizda/tarihcemiz', '_blank', 'location=yes');
+            
+        }); 
+
+        $("#vizyon").on("click",function(){
+            window.open('http://anadoluefes.com.tr/hakkimizda/vizyonumuz-misyonumuz', '_blank', 'location=yes')
+            
+        }); 
+
+        $("#deger").on("click",function(){
+            window.open('http://anadoluefes.com.tr/hakkimizda/degerlerimiz', '_blank', 'location=yes')
+            
+        }); 
+
+        $("#fabrik").on("click",function(){
+            window.open('http://anadoluefes.com.tr/hakkimizda/fabrikalarimiz', '_blank', 'location=yes')
+            
+        }); 
+
+        $("#odull").on("click",function(){
+            window.open('http://anadoluefes.com.tr/hakkimizda/odullerimiz', '_blank', 'location=yes')
+            
+        }); 
+    }
+
+    if (page.name === 'toplumsal') {
+        
+        $("#turi").on("click",function(){
+
+            iabRef = window.open('http://anadoluefes.com.tr/toplumsal-sorumluluk/gelecek-turizmde', '_blank', 'location=yes');
+            
+
+            
+        }); 
+
+        $("#tari").on("click",function(){
+            window.open('http://anadoluefes.com.tr/toplumsal-sorumluluk/gelecek-tarimda', '_blank', 'location=yes')
+            
+        }); 
+
+        $("#sanat").on("click",function(){
+            window.open('http://anadoluefes.com.tr/toplumsal-sorumluluk/kultur-sanat', '_blank', 'location=yes')
+            
+        }); 
+
+        $("#spor").on("click",function(){
+            window.open('http://anadoluefes.com.tr/toplumsal-sorumluluk/spor', '_blank', 'location=yes')
+            
+        }); 
+
+        $("#sorumlu").on("click",function(){
+            window.open('http://anadoluefes.com.tr/toplumsal-sorumluluk/sorumlu-tuketim', '_blank', 'location=yes')
+            
+        }); 
+    }
+
+
+    if (page.name === 'surdur') {
+       
+        
+        $("#politi").on("click",function(){
+
+            iabRef = window.open('http://anadoluefes.com.tr/surdurulebilirlik/surdurulebilirlik-politikamiz', '_blank', 'location=yes');
+           
+        }); 
+
+        $("#rapor").on("click",function(){
+            window.open('http://anadoluefes.com.tr/surdurulebilirlik/surdurulebilirlik-raporu', '_blank', 'location=yes')
+            
+        }); 
+
+    }
+
+    if (page.name === 'search') {
+
+        
+            myApp.showPreloader();
+
+            $.ajax({  
+                url: base_url+"GetLocations.aspx",
+                type: 'GET',
+                success: function(html)
+                {
+                    
+                     locations_list = html;
+
+                    $("#search_location").html("");                               
+                                                    
+                    $("#search_location").append('<option value="" disabled selected>Tüm Lokasyonlar</option>');
+                    if(html.location){
+                        $.each(html.location,function(ind,val){
+                            $("#search_location").append('<option value="'+val.locationcode+'" >'+val.locationtext+'</option>');
+
+                        });
+
+                    }
+
+                     myApp.hidePreloader();
+
+
+                }
+
+
+            });
+        
+        $("#search_location").on("change",function(){
+            location_val = $(this).val();
+            myApp.showPreloader();
+
+            
+            $.ajax({  
+                url: base_url+"GetDept.aspx",
+                type: 'POST',
+                data:{__VIEWSTATE:'/wEPDwULLTEzMTc4NjY3NThkZGEscyV5gbVBpps65VNMpmYgTQIBO8Ju3ph/gWhJIbS4',__EVENTVALIDATION:'/wEWAwK7tcbFBgKF+9bXBQLCi9reA6ok3DiSKvO+jAnD/3qO4FgNM5a/8H8q6AZvnHG4w40c',txtLoc:location_val,btnSubmit:'Submit'},
+                success: function(dept)
+                {
+                    
+                
+
+                    $("#search_dept").html("");                               
+                    $("#search_dept").append('<option value="" disabled selected>Tüm Departmanlar</option>');
+                    if(dept.departments){
+                        $.each(dept.departments,function(ind,val){
+                            $("#search_dept").append('<option value="'+val.departmentcode+'" >'+val.departmenttext+'</option>');
+
+                        });
+
+                    }
+
+                     myApp.hidePreloader();
+
+
+                }
+
+
+            });
+
+        });
+
+
+
+        $("#btnSubmit").on("click",function(){
+            //mainView.router.loadPage('search_result.html');
+
+            myApp.showPreloader();
+
+            $.ajax({  
+                url: base_url+"getper.aspx",
+                type: 'POST',
+                data:$("#search_form").serialize(),
+                success: function(html)
+                {
+                    
+                     person_search_result = html;
+
+                     mainView.router.loadPage('search_result.html');
+
+                     myApp.hidePreloader();
+
+
+                }
+
+
+            });
+        });
+
+
+        
+
+    }
+
+
+    if (page.name === 'search_result') {
+
+        //alert(person_search_result);
+
+        //console.log(person_search_result);
+        //
+        $("#result_list").html("");
+        
+        $("#result_text").text(person_search_result.result);
+        if(person_search_result.usersearch){
+            $.each(person_search_result.usersearch,function(ind,val){
+                content = '<a href="search_profile_detail.html?user_id='+val.perno+'"><div class="search_result"><div class="result_userimg" style="background-image: url('+base_url+val.photo+');"></div><div class="result_detail"><div class="result_detail_name"><h4>'+val.name+'</h4><p>'+val.title+'</p></div><div class="result_detail_loc_dept"><div class="result_detail_loc"><h5>Lokasyon</h5><p>'+val.loc+'</p></div><div class="result_detail_dept"><h5>Departman</h5><p>'+val.dept+'</p></div></div></div></div></a>';
+                $("#result_list").append(content);
+
+            });
+        }
+        
+    }
+
+    if (page.name === 'search_profile_detail') {
+
+        user_no = page.query.user_id;
+        
+        
+        if(person_search_result.usersearch){
+            $.each(person_search_result.usersearch,function(ind,val){
+                if(val.perno == user_no){
+                    $("#result_photo").css("background-image",'url('+base_url+val.photo+')');
+                    $("#result_title").text(val.name);
+                    $("#result_name").text(val.title);
+                    $("#result_department").text(val.dept);
+                    $("#result_location").text(val.loc);
+                    $("#result_email").attr("href","mailto:"+val.email);
+                    $("#result_email").text(val.email);
+
+                    $("#result_phone").attr("href","tel:"+val.phone);
+                    $("#result_phone").text(val.phone);
+                    $("#user_feeds").on("click",function(){
+                        mainView.router.loadPage('my_posts.html?user_id='+val.perno);
+
+                    });
+                   return false;
+                }
+
+
+
+            });
+        }
+        
+    }
+    if (page.name === 'my_profile') {
+
+        
+        
+        
+        
+        
+
+
+
+        if(window.localStorage.getItem("username")){
+            myApp.showPreloader();
+            //html={ "status": "OK", "result": "Personel bilgisi iletildi", "usersearch": [ { "title": "Sendikalı İşçi", "name": "ENDER", "familyname": "ÖNER", "phone": "", "perno": "90000245", "loc": "Anadolu Efes - İstanbul", "haspic": "X", "dept": "TBTZ. İst. D.Fıçılama", "email": "", "picture": "/USER/90000245.Bmp" } ] };
+            $.ajax({
+                url: base_url+"getperdtlx.aspx",
+                type: 'POST',
+                data:{__VIEWSTATE:"/wEPDwULLTEzMTc4NjY3NThkZAVsUVuJqJG7K5caVhzxUYthBEuztNiAwTyZN7W7NZ4Z",__EVENTVALIDATION:"/wEWAwKKz7SDBwLnp8nWCALCi9reA7QmPsZEsK1mdLdnIH0KitUlJLMwmlI2CLa/oPkSoiT5",txtUid2:window.localStorage.getItem("username"),btnSubmit:"Submit"},
+                success: function(html){
+                    if(html.usersearch){
+                        val = html.usersearch[0];
+                        $("#profile_photo").css("background-image",'url('+base_url+val.picture+')');
+                        $("#profile_title").text(val.name+" "+val.familyname);
+                        $("#profile_name").text(val.title);
+                        $("#profile_department").text(val.dept);
+                        $("#profile_location").text(val.loc);
+                        $("#profile_email").attr("href","mailto:"+val.email);
+                        $("#profile_email").text(val.email);
+
+                        $("#profile_phone").attr("href","tel:"+val.phone);
+                        $("#profile_phone").text(val.phone);
+
+                        var og_phone_stat = "";
+                        if(val.showphone == "NO"){
+                            og_phone_stat = "NO";
+                            $("#phone_status").attr("checked",false);
+                        }else{
+                            og_phone_stat = "YES";
+
+                            $("#phone_status").attr("checked",true);
+
+                        }
+
+
+
+                        $("#phone_status").on("change",function(){
+                            var now_stat = "";
+                           if(this.checked) {
+                                now_stat = "YES";
+
+                            }else{
+                                now_stat = "NO";
+
+                            }
+
+                            if(og_phone_stat != now_stat){
+
+                                og_phone_stat = now_stat;
+                                //console.log("call");
+                               
+                                $.ajax({
+                                    url: base_url+"UserUpdate.aspx",
+                                    type: 'POST',
+                                    data:{__VIEWSTATE:"/wEPDwUKMTEzMDk4MTM1NA9kFgICAw8WAh4HZW5jdHlwZQUTbXVsdGlwYXJ0L2Zvcm0tZGF0YWRkhP5C1YCbxNldzBqnSRxiLLy/nPrqRKQkVW81FKegENA=",__EVENTVALIDATION:"/wEWCgKwkLybBwKl1bKzCQL9h72aAQKF+9bXBQKB5fjZAQLEku2wCAK24+CpAQKW+q3cBwL0lYOsCwLCi9reAzAdnymotdXhg37/9ws8RY/NPjm9ObeQwVXeMe/SYa0w",rbOption:og_phone_stat,txtUserName:window.localStorage.getItem("username"),btnSubmit:"Submit"},
+                                    success: function(html){
+                                        console.log(html);
+                                    }
+                                });
+
+                            }
+
+                        });
+
+                        $('#change_photo').on("click",function () {
+                          
+                           navigator.camera.getPicture(upload_profile_Photo, function(message) {
+                                    alert('get picture failed');
+                                },{
+                                    quality: 50, 
+                                    destinationType: navigator.camera.DestinationType.FILE_URI,
+                                    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                                }
+                            );
+
+
+                           function upload_profile_Photo(imageURI) {
+                                $('.my_profile_pic').css('background-image', 'url("' + imageURI + '")');
+                                date = new Date();
+                                var file_nitesh = imageURI.substr(imageURI.lastIndexOf('/')+1);
+                                file_extn = file_nitesh.substr(file_nitesh.lastIndexOf('.'));
+                                var options = new FileUploadOptions();
+                                options.fileKey="fuImage";
+                               // options.fileName="extra_"+imageURI.substr(imageURI.lastIndexOf('/')+1);
+                                options.fileName="profile_"+date.getDate()+"_"+date.getTime()+file_extn;
+                               
+                                options.mimeType="image/jpeg";
+                                options.chunkedMode = false;
+
+                                options.headers = {
+
+                                    Connection: "close"
+
+                                };
+
+                                var params = {};
+                                params.__VIEWSTATE = "/wEPDwUKMTEzMDk4MTM1NA9kFgICAw8WAh4HZW5jdHlwZQUTbXVsdGlwYXJ0L2Zvcm0tZGF0YWRkhP5C1YCbxNldzBqnSRxiLLy/nPrqRKQkVW81FKegENA=";
+                                params.__EVENTVALIDATION = "/wEWCgKwkLybBwKl1bKzCQL9h72aAQKF+9bXBQKB5fjZAQLEku2wCAK24+CpAQKW+q3cBwL0lYOsCwLCi9reAzAdnymotdXhg37/9ws8RY/NPjm9ObeQwVXeMe/SYa0w";
+                                params.txtUserName = window.localStorage.getItem("username");
+                                params.btnSubmit = "Submit";
+                                options.params = params;
+
+                                var ft = new FileTransfer();
+                                myApp.showPreloader("Yükleniyor.");
+
+                                ft.upload(imageURI, encodeURI(base_url+"UserUpdate.aspx"),profile_win,profile_fail, options);
+                                //ft.upload(imageURI, "http://yourdomain.com/upload.php", win, fail, options);
+                            }
+                     
+                            function profile_win(r) {
+                                  myApp.hidePreloader();
+
+                                // console.log("Code = " + r.responseCode);
+                                // console.log("Response = " + r.response);
+                                // console.log("Sent = " + r.bytesSent);
+                                // alert(r.response);
+                            }
+                     
+                            function profile_fail(error) {
+                                myApp.hidePreloader();
+
+                                alert("An error has occurred: Code = " + error.code);
+                            }
+
+
+
+                        }); 
+
+
+                        $("#my_feeds").on("click",function(){
+                            mainView.router.loadPage('my_posts.html?user_id='+val.perno);
+
+                        });
+                      
+                    }
+                    myApp.hidePreloader();
+
+                }
+            });
+        }else{
+            setTimeout(function () {
+                mainView.router.loadPage('login_page.html');
+                
+            },1000);
+
+        }
+
+        $("#my_profile_logout").on("click",function(){
+            window.localStorage.removeItem("username");
+            mainView.router.loadPage('login_page.html');
+
+        });
+        
+    }
+
+    if (page.name === 'my_posts') {
+
+        myApp.showPreloader();
+        $.ajax({  
+            url: base_url+"GetJson.aspx?USR="+page.query.user_id,
+            type: 'GET',
+            success: function(html)
+            {
+                var all_feeds = "";
+
+                myApp.hidePreloader();
+                
+                if(html.feeddata){
+                    for(var i=0;i<html.feeddata.length;i++){
+                            //alert(value.imagename[0].image);
+                    
+                        var date_time = html.feeddata[i].uploaddate;
+                        var time_ago = jQuery.timeago(date_time);
+                        var posts = '<div class="welcome_post"><div class="row no-gutter"><div class="col-75"><div class="profile_img" style="background-image: url(images/post_user_img2.jpg);"></div><div class="user_name"><p>'+html.feeddata[i].username+'</p><span>'+time_ago+'</span></div></div><div class="col-25"><div class="likes_wrap"><span class="likes_count">'+html.feeddata[i].likes+'</span><div class="post_likes" alt="'+html.feeddata[i].uniqid+'"><i class="fa fa-heart"></i></div></div></div></div><div class="row"><a href="feed_photo.html?uid='+html.feeddata[i].uniqid+'"><div class="col-100"><div class="post_text"><p>'+html.feeddata[i].feeddata+'</p></div>';
+                            if(html.feeddata[i].imagename[0] && html.feeddata[i].imagename[0].image != ""){
+                                //feed_img = html.feeddata[i].imagename[0].image;
+                                posts +='<div class="post_img"><img src="'+base_url+'/images/'+html.feeddata[i].imagename[0].image+'" alt=""></div>';
+                            }
+                             posts +='</div></div></a></div>';
+                        // $(".welcome_wrapper").append(posts);
+                       all_feeds += posts;
+                        
+                    }
+
+                    
+                }
+
+                
+                
+                $("#my_posts_list").html("");
+
+                $("#my_posts_list").append(all_feeds);
+
+            }
+        });
+
+    }
+
+
+    
+
+
+});
+
+
+// Generate dynamic page
+// var dynamicPageIndex = 0;
+// function createContentPage() {
+//  mainView.router.loadContent(
+//         '<!-- Top Navbar-->' +
+//         '<div class="navbar">' +
+//         '  <div class="navbar-inner">' +
+//         '    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' +
+//         '    <div class="center sliding">Dynamic Page ' + (++dynamicPageIndex) + '</div>' +
+//         '  </div>' +
+//         '</div>' +
+//         '<div class="pages">' +
+//         '  <!-- Page, data-page contains page name-->' +
+//         '  <div data-page="dynamic-pages" class="page">' +
+//         '    <!-- Scrollable page content-->' +
+//         '    <div class="page-content">' +
+//         '      <div class="content-block">' +
+//         '        <div class="content-block-inner">' +
+//         '          <p>Here is a dynamic page created on ' + new Date() + ' !</p>' +
+//         '          <p>Go <a href="#" class="back">back</a> or go to <a href="services.html">Services</a>.</p>' +
+//         '        </div>' +
+//         '      </div>' +
+//         '    </div>' +
+//         '  </div>' +
+//         '</div>'
+//     );
+//  return;
+// }
