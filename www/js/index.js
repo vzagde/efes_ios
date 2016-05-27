@@ -51,6 +51,7 @@
 
 document.addEventListener("deviceready", onDeviceReadyMy, false);
 function onDeviceReadyMy() {
+    alert("Device Ready Called");
     var push = PushNotification.init({ 
         // "android": {"senderID": "492720801087"},
         "android": {"senderID": "223767762284"},
@@ -59,8 +60,11 @@ function onDeviceReadyMy() {
     });
 
     push.on('registration', function(data) {
+        alert("Registration called Called");
         regID = data.registrationId;
         localStorage.setItem('regID', data.registrationId);
+        alert(data.registrationId);
+        alert("Ajax going to be triggered");
         $.ajax({
             url: 'http://95.130.170.228/EpesData/keyget.aspx',
             type: 'POST',
@@ -70,19 +74,10 @@ function onDeviceReadyMy() {
                 submit:"Submit",
             },
             success: function(html){
+                alert("AJAX call triggered returned success");
                 console.log(html);
             },
         })
-        // .done(function() {
-
-        //     console.log("success");
-        // })
-        // .fail(function() {
-        //     console.log("error");
-        // })
-        // .always(function() {
-        //     console.log("complete");
-        // });
     });
 
     push.on('notification', function(data) {
